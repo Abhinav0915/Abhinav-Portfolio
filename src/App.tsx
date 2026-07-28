@@ -1345,7 +1345,12 @@ function Hero({
               <GhostButton theme={theme} onClick={() => scrollTo("contact")}>
                 Contact Me
               </GhostButton>
-              <GhostButton theme={theme} as="a" href="#">
+              <GhostButton
+                theme={theme}
+                as="a"
+                href="/assets/Resume.pdf"
+                download="Resume.pdf"
+              >
                 <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
                   Download Resume
                 </span>
@@ -1513,12 +1518,14 @@ function GhostButton({
   theme,
   as = "button",
   href,
+  download,
 }: {
   children: React.ReactNode;
   onClick?: () => void;
   theme: Theme;
   as?: string;
   href?: string;
+  download?: string;
 }) {
   const Comp = as === "a" ? "a" : "button";
   return (
@@ -1529,6 +1536,7 @@ function GhostButton({
     >
       <Comp
         href={href}
+        download={download}
         onClick={onClick}
         style={{
           background: "transparent",
@@ -2528,13 +2536,56 @@ function Contact({
 }) {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const submit = (e: React.FormEvent<HTMLFormElement>) => {
+  const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.message) return;
-    setSent(true);
-    setTimeout(() => setSent(false), 4000);
-    setForm({ name: "", email: "", message: "" });
+
+    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
+      setError("Please fill in your name, email, and message.");
+      setSent(false);
+      return;
+    }
+
+    setIsSubmitting(true);
+    setError("");
+
+    try {
+      const response = await fetch(
+        `https://formsubmit.co/ajax/${encodeURIComponent(CONTACT.email)}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            name: form.name.trim(),
+            email: form.email.trim(),
+            message: form.message.trim(),
+            _subject: `New portfolio message from ${form.name.trim()}`,
+            _replyto: form.email.trim(),
+            _template: "table",
+          }).toString(),
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("Unable to send your message right now.");
+      }
+
+      setSent(true);
+      setForm({ name: "", email: "", message: "" });
+      window.setTimeout(() => setSent(false), 5000);
+    } catch {
+      setError(
+        "Your message could not be sent. Please try again or email me directly.",
+      );
+      setSent(false);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -2667,9 +2718,10 @@ function Contact({
                 />
               </div>
               <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                 type="submit"
+                disabled={isSubmitting}
                 style={{
                   marginTop: 20,
                   background: `linear-gradient(135deg, ${accentBlue}, ${accentPurple})`,
@@ -2679,13 +2731,15 @@ function Contact({
                   borderRadius: 12,
                   fontWeight: 600,
                   fontSize: 14.5,
-                  cursor: "pointer",
+                  cursor: isSubmitting ? "wait" : "pointer",
                   display: "flex",
                   alignItems: "center",
                   gap: 8,
+                  opacity: isSubmitting ? 0.8 : 1,
                 }}
               >
-                <Send size={15} /> Send Message
+                <Send size={15} />{" "}
+                {isSubmitting ? "Sending..." : "Send Message"}
               </motion.button>
               <AnimatePresence>
                 {sent && (
@@ -2704,6 +2758,23 @@ function Contact({
                   >
                     <CheckCircle2 size={16} /> Message sent — I'll get back to
                     you soon.
+                  </motion.div>
+                )}
+                {error && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    style={{
+                      marginTop: 14,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 8,
+                      color: "#FF6B6B",
+                      fontSize: 13.5,
+                    }}
+                  >
+                    <X size={16} /> {error}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -2852,7 +2923,7 @@ function Footer({
           className="mono-font"
           style={{ fontSize: 12.5, color: theme.textDim }}
         >
-          © 2026 {CONTACT.name}. Built with React & Framer Motion.
+          © 2026 {CONTACT.name}.
         </span>
         <div style={{ display: "flex", gap: 18 }}>
           <a
