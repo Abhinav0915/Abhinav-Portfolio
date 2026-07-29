@@ -1348,7 +1348,7 @@ function Hero({
               <GhostButton
                 theme={theme}
                 as="a"
-                href="/assets/Resume.pdf"
+                href="/Resume.pdf"
                 download="Resume.pdf"
               >
                 <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
