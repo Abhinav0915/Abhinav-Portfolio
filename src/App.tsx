@@ -471,32 +471,6 @@ const EXPERIENCE = [
 
 const PROJECTS = [
   {
-    name: "ProdigiDesk",
-    period: "Jun 2024 – Dec 2025",
-    tags: ["React", "Python", "PostgreSQL", "AWS", "Docker", "AES/RSA"],
-    summary:
-      "A scalable full-stack platform with hybrid AES+RSA security and multilingual delivery.",
-    details: [
-      "JWT + hybrid AES/RSA authentication — zero unauthorized access incidents across 100+ secure Razorpay transactions.",
-      "Custom multi-processed Python translation engine — 50% faster localisation, no manual CI/CD overhead.",
-      "GCP-powered server-side rendering and metadata — 20% increase in SEO-driven organic traffic.",
-    ],
-    link: "https://prodigidesk.ai",
-  },
-  {
-    name: "Localise",
-    period: "Apr 2025",
-    tags: ["Django", "React", "TypeScript", "Azure Translator"],
-    summary:
-      "A full-stack platform that translates JSON and Word files into 20+ languages.",
-    details: [
-      "Concurrent translation processing with Python asyncio + semaphores across Google & Azure Translator APIs.",
-      "Vite + Tailwind workflow for uploads, language selection, and ZIP-based downloads via Axios.",
-      "Real-time progress tracking via a dedicated polling endpoint.",
-    ],
-    link: null,
-  },
-  {
     name: "Aarya's Spicy Food — Cloud Kitchen",
     period: "May 2026",
     tags: ["Next.js", "TypeScript", "Framer Motion", "Firebase"],
@@ -522,6 +496,33 @@ const PROJECTS = [
     ],
     link: "https://jamaicanpatty-e25a2.web.app/",
   },
+  {
+    name: "ProdigiDesk",
+    period: "Jun 2024 – Dec 2025",
+    tags: ["React", "Python", "PostgreSQL", "AWS", "Docker", "AES/RSA"],
+    summary:
+      "A scalable full-stack platform with hybrid AES+RSA security and multilingual delivery.",
+    details: [
+      "JWT + hybrid AES/RSA authentication — zero unauthorized access incidents across 100+ secure Razorpay transactions.",
+      "Custom multi-processed Python translation engine — 50% faster localisation, no manual CI/CD overhead.",
+      "GCP-powered server-side rendering and metadata — 20% increase in SEO-driven organic traffic.",
+    ],
+    link: "https://prodigidesk.ai",
+  },
+  {
+    name: "Localise",
+    period: "Apr 2025",
+    tags: ["Django", "React", "TypeScript", "Azure Translator"],
+    summary:
+      "A full-stack platform that translates JSON and Word files into 20+ languages.",
+    details: [
+      "Concurrent translation processing with Python asyncio + semaphores across Google & Azure Translator APIs.",
+      "Vite + Tailwind workflow for uploads, language selection, and ZIP-based downloads via Axios.",
+      "Real-time progress tracking via a dedicated polling endpoint.",
+    ],
+    link: null,
+  },
+  
   {
     name: "PISCA",
     period: "Nov 2024",
@@ -1320,7 +1321,7 @@ function Hero({
                 color: theme.textDim,
               }}
             >
-              Computer Science graduate and founding engineer building secure,
+              Computer Science graduate student and founding engineer building secure,
               scalable full-stack systems — from encrypted payment flows to
               localisation engines — across React, Django, Spring Boot, and AWS.
               Currently pursuing a Master's at the University of Sydney, with
@@ -1632,7 +1633,7 @@ function About({
             <p
               style={{ color: theme.textDim, lineHeight: 1.8, fontSize: 15.5 }}
             >
-              I'm a Computer Science graduate with a strong foundation in
+              I'm a Computer Science graduate student with a strong foundation in
               full-stack development, software engineering, and cloud-based
               systems. I've designed efficient APIs, built responsive UIs, and
               shipped applications across web and mobile with React, Django,
