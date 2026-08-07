@@ -473,27 +473,42 @@ const PROJECTS = [
   {
     name: "Aarya's Spicy Food — Cloud Kitchen",
     period: "May 2026",
-    tags: ["Next.js", "TypeScript", "Framer Motion", "Firebase"],
+    tags: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Django REST Framework",
+      "JWT",
+      "PostgreSQL",
+      "Firebase",
+      "Render",
+      "Supabase",
+    ],
     summary:
-      "A responsive food-service site with tailored journeys per ordering channel.",
+      "A full-stack cloud kitchen platform enabling secure online food ordering, order management, and real-time tracking with a scalable cloud-native architecture.",
+
     details: [
-      "Segment-based experience for Ghar Se, Zomato, Swiggy, and Catering flows.",
-      "Framer Motion transitions across a multi-section landing page.",
-      "Firebase analytics wired in as a foundation for future growth.",
+      "Developed a full-stack food ordering platform using Next.js, React, TypeScript, Django REST Framework, JWT authentication, and PostgreSQL for seamless customer and admin experiences.",
+      "Built customer features including secure authentication, menu browsing, shopping basket management, order placement, real-time order tracking, order cancellation, and profile management.",
+      "Designed secure REST APIs with JWT-based authentication, role-based access control (RBAC), customer-specific order history, order validation, and automated order status management.",
+      "Created an admin dashboard for efficient order monitoring, filtering, status updates, and real-time customer order management.",
+      "Deployed the frontend on Firebase Hosting, backend on Render, and production database on Supabase PostgreSQL, delivering a scalable cloud-native deployment.",
     ],
     link: "https://aarya-spicy-food-babe2.firebaseapp.com/",
   },
   {
     name: "Jamaican Patty House",
     period: "May 2026",
-    tags: ["React", "TypeScript", "Vite", "Tailwind"],
+    tags: ["React", "TypeScript", "Vite", "Tailwind CSS"],
     summary:
-      "A single-page restaurant site with menu, hours, and a custom brand theme.",
+      "Developed a responsive single-page restaurant website featuring a dynamic hero section, interactive menu catalog, business hours, and contact information using React, TypeScript, and Vite.",
     details: [
-      "Scroll-based reveals tuned for mobile, tablet, and desktop.",
-      "Structured menu / hours data models for easy long-term upkeep.",
-      "Custom Jamaican-inspired visual identity and CTAs.",
+      "Implemented scroll-based navigation, animated reveal effects, and fully responsive layouts for seamless experiences across mobile, tablet, and desktop devices.",
+      "Designed structured data models for menu items and opening hours, enabling dynamic content rendering, simplified maintenance, and improved scalability.",
+      "Crafted a custom Jamaican-inspired UI/UX with branded color palettes, typography, and interactive call-to-action components for a visually consistent user experience.",
     ],
+
     link: "https://jamaicanpatty-e25a2.web.app/",
   },
   {
@@ -512,17 +527,33 @@ const PROJECTS = [
   {
     name: "Localise",
     period: "Apr 2025",
-    tags: ["Django", "React", "TypeScript", "Azure Translator"],
-    summary:
-      "A full-stack platform that translates JSON and Word files into 20+ languages.",
-    details: [
-      "Concurrent translation processing with Python asyncio + semaphores across Google & Azure Translator APIs.",
-      "Vite + Tailwind workflow for uploads, language selection, and ZIP-based downloads via Axios.",
-      "Real-time progress tracking via a dedicated polling endpoint.",
+    tags: [
+      "React",
+      "TypeScript",
+      "Django",
+      "Python",
+      "Vite",
+      "Tailwind CSS",
+      "PostgreSQL",
+      "Axios",
+      "Google Translate API",
+      "Azure AI Translator",
+      "python-docx",
+      "asyncio",
     ],
-    link: null,
+    summary:
+      "A full-stack localization platform for translating JSON language files and Word documents into 30+ languages while preserving formatting and providing real-time progress tracking.",
+    details: [
+      "Built a full-stack localization platform using React (TypeScript) and Django REST Framework to translate JSON files and DOCX documents into 30+ languages, including 22 Indian languages, in a single batch operation.",
+      "Integrated interchangeable Google Translate (deep-translator) and Azure AI Translator APIs, enabling flexible translation workflows based on cost, quality, and rate-limit requirements.",
+      "Developed an in-place DOCX translation pipeline using python-docx that preserves formatting, styles, tables, and document layout while translating content.",
+      "Optimized large translation workloads using Python asyncio with semaphore-controlled concurrency (10 parallel requests) and implemented real-time job progress tracking via polling APIs.",
+      "Created a responsive React SPA with React Router and Tailwind CSS featuring multi-language selection, one-click ZIP downloads, and independent frontend/backend deployment on Render with secure CORS communication.",
+    ],
+
+    link: "https://localisfe.onrender.com/",
   },
-  
+
   {
     name: "PISCA",
     period: "Nov 2024",
@@ -1321,11 +1352,11 @@ function Hero({
                 color: theme.textDim,
               }}
             >
-              Computer Science graduate student and founding engineer building secure,
-              scalable full-stack systems — from encrypted payment flows to
-              localisation engines — across React, Django, Spring Boot, and AWS.
-              Currently pursuing a Master's at the University of Sydney, with
-              research roots in deep learning.
+              Computer Science graduate student and founding engineer building
+              secure, scalable full-stack systems — from encrypted payment flows
+              to localisation engines — across React, Django, Spring Boot, and
+              AWS. Currently pursuing a Master's at the University of Sydney,
+              with research roots in deep learning.
             </p>
 
             <div
@@ -1349,11 +1380,11 @@ function Hero({
               <GhostButton
                 theme={theme}
                 as="a"
-                href="/Resume.pdf"
-                download="Resume.pdf"
+                href="/CV-Resume.zip"
+                download="Abhinav_Saxena_CV_Resume.zip"
               >
                 <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                  Download Resume
+                  Download CV/Resume
                 </span>
               </GhostButton>
             </div>
@@ -1633,8 +1664,8 @@ function About({
             <p
               style={{ color: theme.textDim, lineHeight: 1.8, fontSize: 15.5 }}
             >
-              I'm a Computer Science graduate student with a strong foundation in
-              full-stack development, software engineering, and cloud-based
+              I'm a Computer Science graduate student with a strong foundation
+              in full-stack development, software engineering, and cloud-based
               systems. I've designed efficient APIs, built responsive UIs, and
               shipped applications across web and mobile with React, Django,
               Java, Flutter, and AWS.
