@@ -471,6 +471,56 @@ const EXPERIENCE = [
 
 const PROJECTS = [
   {
+    name: "GlassBox — Explainable Network Anomaly Detection System",
+    period: "Aug 2026",
+    tags: [
+      "Python",
+      "Django REST Framework",
+      "PyTorch",
+      "scikit-learn",
+      "SHAP",
+      "scapy",
+      "React",
+      "TypeScript",
+    ],
+    summary:
+      "A network intrusion detection system pairing an Isolation Forest and a PyTorch autoencoder with SHAP-based explainability, so every flagged flow comes with a human-readable reason instead of a black-box score.",
+    details: [
+      "Decoupled the ML pipeline from serving: trained an Isolation Forest (200 trees, ~77 CICFlowMeter features) and a PyTorch autoencoder (64 → 32 → 16-dim latent) on benign-only CIC-IDS2018 traffic, serialized as joblib/.pt artifacts loaded once at Django startup via a singleton ModelRegistry.",
+      "Built in honest evaluation practices: thresholds tuned on a dedicated validation set with the held-out test set touched exactly once; autoencoder checkpointing selected on validation PR-AUC rather than reconstruction loss to avoid the model getting better at reconstructing attacks too.",
+      "Wired SHAP explainability into the live alert path — TreeExplainer for the Isolation Forest, KernelExplainer for the autoencoder — gated to fire only on flagged flows, with explanations persisted per-Alert for re-analysis if thresholds are later retuned.",
+      "Implemented memory-safe preprocessing of CIC-IDS2018 at scale: log1p transforms, RobustScaler fit on a 1M benign subsample, and chunked scaling in 100k-row blocks with explicit garbage collection so the full pipeline runs on a laptop.",
+      "Added live capture via scapy's AsyncSniffer reusing the same analysis path as dataset replay, hardened with X-API-Key auth in production and a heartbeat file to distinguish a stopped capture from a crashed one.",
+    ],
+    link: null,
+  },
+  {
+    name: "Localeora",
+    period: "Aug 2026 – Present",
+    tags: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Django REST Framework",
+      "PostgreSQL",
+      "Node.js",
+      "Babel",
+      "ts-morph",
+      "Google Cloud Translation API",
+      "Azure AI Translator",
+    ],
+    summary:
+      "An AST-based localization platform that extracts, translates, and rewrites user-facing strings directly in React/TSX and HTML source code — with every change reviewable as a diff before it's ever written to disk.",
+    details: [
+      "Architected a Node.js extraction engine (Babel parser and traverse, parse5/cheerio) that reads user-facing strings directly out of React, TypeScript, TSX, and HTML source, decoupled from a Django REST Framework API that owns orchestration and persistence.",
+      "Designed a two-engine pipeline separating read-only extraction from source-rewriting transformation via ts-morph, with each edit re-validated against a content hash of the source file before being applied — preventing silent corruption of the codebase.",
+      "Implemented a dry-run-to-apply workflow: proposed edits render as a reviewable diff and are only written to disk after explicit approval, backed by structured, schema-validated artifacts shared across the Python and Node services.",
+      "Built a provider-agnostic translation layer integrating Google Cloud Translation and Azure AI Translator behind one interface, using Python asyncio with semaphore-bounded concurrency for batch jobs, polled asynchronously by the frontend for live progress.",
+      "Developed the full-stack system end-to-end — JWT and OTP-based authentication, PostgreSQL persistence, and a React/TypeScript/Vite frontend with Tailwind CSS and React Three Fiber for interactive 3D visualizations — supporting 30+ target languages.",
+    ],
+    link: null,
+  },
+  {
     name: "Aarya's Spicy Food — Cloud Kitchen",
     period: "May 2026",
     tags: [
