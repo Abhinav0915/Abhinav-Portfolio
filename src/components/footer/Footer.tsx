@@ -1,155 +1,89 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { CONTACT } from "../../data/portfolioData";
-import {
-  GithubIcon,
-  LinkedinIcon,
-  MailIcon,
-  ArrowUpIcon,
-  TerminalIcon,
-} from "../common/Icons";
 
 type FooterProps = {
   onScrollToTop: () => void;
 };
 
 export const Footer: React.FC<FooterProps> = ({ onScrollToTop }) => {
-  const [sydneyTime, setSydneyTime] = useState<string>("");
-
-  useEffect(() => {
-    const updateTime = () => {
-      try {
-        const now = new Date();
-        const formatter = new Intl.DateTimeFormat("en-AU", {
-          timeZone: "Australia/Sydney",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: false,
-        });
-        setSydneyTime(formatter.format(now));
-      } catch {
-        setSydneyTime("UTC+10");
-      }
-    };
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <footer
       style={{
-        borderTop: "1px solid var(--border-subtle)",
-        background: "#06080B",
-        padding: "48px 24px 36px 24px",
-        position: "relative",
-        zIndex: 10,
+        borderTop: "1px solid var(--rule-hairline)",
+        padding: "60px 0 40px 0",
+        backgroundColor: "var(--bg-primary)",
       }}
     >
-      <div
-        style={{
-          maxWidth: "1200px",
-          margin: "0 auto",
-        }}
-      >
-        {/* Top telemetry bar */}
+      <div className="editorial-container">
+        {/* Main Footer Row */}
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
-            alignItems: "center",
+            alignItems: "flex-start",
             flexWrap: "wrap",
-            gap: "16px",
-            paddingBottom: "28px",
-            borderBottom: "1px solid var(--border-subtle)",
-            marginBottom: "32px",
+            gap: "36px",
+            marginBottom: "48px",
           }}
         >
-          {/* Brand */}
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <div>
             <div
+              className="font-display font-bold uppercase"
               style={{
-                width: 26,
-                height: 26,
-                borderRadius: "6px",
-                background: "rgba(0, 229, 255, 0.15)",
-                border: "1px solid rgba(0, 229, 255, 0.35)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "var(--accent-cyan)",
+                fontSize: "1.4rem",
+                letterSpacing: "-0.03em",
+                color: "var(--ink-primary)",
+                marginBottom: "4px",
               }}
             >
-              <TerminalIcon size={14} />
+              Abhinav Saxena
             </div>
-            <span
-              className="font-mono font-bold text-sm"
-              style={{ color: "#FFFFFF" }}
-            >
-              abhinav<span style={{ color: "var(--accent-cyan)" }}>.dev</span>
-            </span>
+            <div className="font-mono text-xs uppercase" style={{ color: "var(--ink-secondary)" }}>
+              Full-Stack Software Engineer • Systems &amp; Applied AI
+            </div>
           </div>
 
-          {/* Telemetry metadata: status & Sydney clock */}
           <div
             className="font-mono text-xs"
             style={{
               display: "flex",
-              alignItems: "center",
-              gap: "18px",
-              color: "var(--text-tertiary)",
+              gap: "28px",
               flexWrap: "wrap",
             }}
           >
-            <span style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              <span
-                style={{
-                  width: 6,
-                  height: 6,
-                  borderRadius: "50%",
-                  backgroundColor: "var(--accent-emerald)",
-                  boxShadow: "0 0 6px var(--accent-emerald)",
-                }}
-              />
-              SYSTEM: OPERATIONAL
-            </span>
-
-            <span>SYDNEY [UTC+10]: {sydneyTime || "12:00:00"}</span>
-            <span>STACK: REACT 19 • TS • VITE</span>
+            <a
+              href={CONTACT.github}
+              target="_blank"
+              rel="noreferrer"
+              className="editorial-link"
+            >
+              GITHUB ↗
+            </a>
+            <a
+              href={CONTACT.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              className="editorial-link"
+            >
+              LINKEDIN ↗
+            </a>
+            <a
+              href={`mailto:${CONTACT.email}`}
+              className="editorial-link"
+            >
+              EMAIL ↗
+            </a>
+            <a
+              href="/CV-Resume.zip"
+              download="Abhinav_Saxena_CV_Resume.zip"
+              className="editorial-link"
+            >
+              CV ARCHIVE ↗
+            </a>
           </div>
-
-          {/* Back to top button */}
-          <button
-            onClick={onScrollToTop}
-            style={{
-              background: "rgba(255, 255, 255, 0.04)",
-              border: "1px solid var(--border-subtle)",
-              borderRadius: "8px",
-              padding: "6px 14px",
-              color: "var(--text-secondary)",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "6px",
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.75rem",
-              transition: "all 0.2s ease",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.color = "#FFFFFF";
-              e.currentTarget.style.borderColor = "var(--border-accent)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.color = "var(--text-secondary)";
-              e.currentTarget.style.borderColor = "var(--border-subtle)";
-            }}
-          >
-            <span>TOP</span>
-            <ArrowUpIcon size={13} />
-          </button>
         </div>
 
-        {/* Bottom copyright & social bar */}
+        {/* Hairline Colophon Row */}
         <div
           style={{
             display: "flex",
@@ -157,61 +91,35 @@ export const Footer: React.FC<FooterProps> = ({ onScrollToTop }) => {
             alignItems: "center",
             flexWrap: "wrap",
             gap: "16px",
+            paddingTop: "24px",
+            borderTop: "1px solid var(--rule-hairline)",
+            color: "var(--ink-tertiary)",
+            fontFamily: "var(--font-mono)",
+            fontSize: "0.75rem",
           }}
         >
-          <div style={{ color: "var(--text-tertiary)", fontSize: "0.82rem" }}>
-            © 2026 {CONTACT.name}. Architected with production discipline.
+          <div>
+            © 2026 ABHINAV SAXENA. SET IN SPACE GROTESK, INTER &amp; JETBRAINS MONO.
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-            <a
-              href={CONTACT.github}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="GitHub"
+          <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+            <span>SYDNEY, NSW, AUSTRALIA</span>
+            <button
+              type="button"
+              onClick={onScrollToTop}
               style={{
-                color: "var(--text-tertiary)",
-                transition: "color 0.2s ease",
+                background: "none",
+                border: "none",
+                padding: 0,
+                color: "var(--ink-primary)",
+                cursor: "pointer",
+                fontFamily: "inherit",
+                fontSize: "inherit",
+                textDecoration: "underline",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#FFFFFF")}
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.color = "var(--text-tertiary)")
-              }
             >
-              <GithubIcon size={17} />
-            </a>
-
-            <a
-              href={CONTACT.linkedin}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LinkedIn"
-              style={{
-                color: "var(--text-tertiary)",
-                transition: "color 0.2s ease",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#FFFFFF")}
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.color = "var(--text-tertiary)")
-              }
-            >
-              <LinkedinIcon size={17} />
-            </a>
-
-            <a
-              href={`mailto:${CONTACT.email}`}
-              aria-label="Email"
-              style={{
-                color: "var(--text-tertiary)",
-                transition: "color 0.2s ease",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#FFFFFF")}
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.color = "var(--text-tertiary)")
-              }
-            >
-              <MailIcon size={17} />
-            </a>
+              TOP ↑
+            </button>
           </div>
         </div>
       </div>

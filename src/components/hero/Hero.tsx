@@ -1,375 +1,316 @@
-import React, { useState, useEffect } from "react";
-import { ROLES, CONTACT } from "../../data/portfolioData";
-import { GlowButton } from "../common/GlowButton";
-import { SystemBadge } from "../common/SystemBadge";
-import { HeroTerminal } from "./HeroTerminal";
-import {
-  GithubIcon,
-  LinkedinIcon,
-  MailIcon,
-  DownloadIcon,
-  ArrowDownIcon,
-  MapPinIcon,
-} from "../common/Icons";
+import React from "react";
+import { CONTACT } from "../../data/portfolioData";
+import { EditorialButton } from "../common/EditorialButton";
+import { Interactive3DObject } from "../common/Interactive3DObject";
+import { Interactive3DWave } from "../common/Interactive3DWave";
 
 type HeroProps = {
   onNavigate: (sectionId: string) => void;
 };
 
 export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [typedRole, setTypedRole] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  // Smooth typewriter effect for roles
-  useEffect(() => {
-    const currentRole = ROLES[roleIndex];
-    let timer: number;
-
-    if (!isDeleting) {
-      if (typedRole.length < currentRole.length) {
-        timer = window.setTimeout(() => {
-          setTypedRole(currentRole.slice(0, typedRole.length + 1));
-        }, 70);
-      } else {
-        timer = window.setTimeout(() => {
-          setIsDeleting(true);
-        }, 2200);
-      }
-    } else {
-      if (typedRole.length > 0) {
-        timer = window.setTimeout(() => {
-          setTypedRole(currentRole.slice(0, typedRole.length - 1));
-        }, 35);
-      } else {
-        timer = window.setTimeout(() => {
-          setIsDeleting(false);
-          setRoleIndex((prev) => (prev + 1) % ROLES.length);
-        }, 200);
-      }
-    }
-
-    return () => clearTimeout(timer);
-  }, [typedRole, isDeleting, roleIndex]);
-
   return (
     <section
       id="hero"
       style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        position: "relative",
-        padding: "130px 24px 80px 24px",
-        overflow: "hidden",
+        paddingTop: "48px",
+        paddingBottom: "80px",
+        borderBottom: "1px solid var(--rule-hairline)",
       }}
     >
-      <div
-        style={{
-          maxWidth: "1200px",
-          width: "100%",
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "1.2fr 1fr",
-          gap: "48px",
-          alignItems: "center",
-        }}
-        className="hero-grid-layout"
-      >
-        {/* Left Column: Developer Identity & Headline */}
-        <div>
-          {/* Small Technical Label */}
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              alignItems: "center",
-              gap: "10px",
-              marginBottom: "20px",
-            }}
-          >
-            <SystemBadge
-              label="SOFTWARE ENGINEER • FULL STACK • AI"
-              variant="cyan"
-            />
+      <div className="editorial-container">
+        {/* Masthead Annotation Bar */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: "12px",
+            paddingBottom: "18px",
+            marginBottom: "36px",
+            borderBottom: "1px solid var(--rule-hairline)",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <div
-              className="font-mono flex items-center gap-1 text-xs"
-              style={{ color: "var(--text-secondary)" }}
-            >
-              <MapPinIcon size={13} color="var(--accent-cyan)" />
-              <span>Sydney, Australia [USyd]</span>
-            </div>
-          </div>
-
-          {/* Large Headline */}
-          <h1
-            className="font-display font-bold tracking-tight"
-            style={{
-              fontSize: "clamp(2.4rem, 5.2vw, 4rem)",
-              lineHeight: 1.08,
-              letterSpacing: "-0.03em",
-              color: "var(--text-primary)",
-              margin: "0 0 16px 0",
-            }}
-          >
-            Building software at the intersection of{" "}
-            <span
-              style={{
-                background:
-                  "linear-gradient(135deg, #00E5FF 0%, #38BDF8 60%, #A855F7 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              engineering, AI & systems.
-            </span>
-          </h1>
-
-          {/* Typewriter Subtitle */}
-          <div
-            className="font-mono"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-              fontSize: "clamp(1.05rem, 2vw, 1.3rem)",
-              fontWeight: 500,
-              color: "var(--text-secondary)",
-              minHeight: "34px",
-              marginBottom: "20px",
-            }}
-          >
-            <span style={{ color: "var(--accent-cyan)" }}>&gt;</span>
-            <span style={{ color: "#FFFFFF" }}>{typedRole}</span>
-            <span
-              style={{
-                display: "inline-block",
-                width: "2px",
-                height: "1.1em",
-                backgroundColor: "var(--accent-cyan)",
-                animation: "statusPulse 0.9s infinite",
-              }}
-            />
-          </div>
-
-          {/* Concise Technical Summary */}
-          <p
-            style={{
-              fontSize: "clamp(0.98rem, 1.6vw, 1.1rem)",
-              lineHeight: 1.7,
-              color: "var(--text-secondary)",
-              maxWidth: "580px",
-              margin: "0 0 32px 0",
-            }}
-          >
-            Computer Science graduate student at{" "}
-            <strong>The University of Sydney</strong> and founding engineer at{" "}
-            <strong>Esprit Analytique</strong>. I architect scalable full-stack
-            platforms, high-throughput APIs in Django and Spring Boot, and
-            verifiable machine learning pipelines with PyTorch and SHAP.
-          </p>
-
-          {/* Action CTAs */}
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "14px",
-              alignItems: "center",
-              marginBottom: "36px",
-            }}
-          >
-            <GlowButton
-              variant="primary"
-              size="lg"
-              onClick={() => onNavigate("projects")}
-              showArrow
-            >
-              View Projects
-            </GlowButton>
-
-            <GlowButton
-              variant="secondary"
-              size="lg"
-              onClick={() => onNavigate("contact")}
-            >
-              Let's Connect
-            </GlowButton>
-
-            <GlowButton
-              variant="ghost"
-              size="lg"
-              as="a"
-              href="/CV-Resume.zip"
-              download="Abhinav_Saxena_CV_Resume.zip"
-              icon={<DownloadIcon size={16} />}
-            >
-              Resume / CV
-            </GlowButton>
-          </div>
-
-          {/* Social Links & Trust Badges */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "16px",
-              flexWrap: "wrap",
-            }}
-          >
-            <span
               className="font-mono text-xs uppercase"
-              style={{ color: "var(--text-tertiary)", letterSpacing: "0.08em" }}
+              style={{ color: "var(--accent-vermilion)", fontWeight: 600 }}
             >
-              Direct channels:
-            </span>
-            <div style={{ display: "flex", gap: "10px" }}>
-              <a
-                href={CONTACT.github}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="GitHub Profile"
-                style={{
-                  width: 38,
-                  height: 38,
-                  borderRadius: "10px",
-                  background: "rgba(255, 255, 255, 0.04)",
-                  border: "1px solid var(--border-subtle)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "var(--text-secondary)",
-                  transition: "all 0.2s ease",
-                  textDecoration: "none",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = "#FFFFFF";
-                  e.currentTarget.style.borderColor = "var(--border-accent)";
-                  e.currentTarget.style.background = "rgba(56, 189, 248, 0.1)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = "var(--text-secondary)";
-                  e.currentTarget.style.borderColor = "var(--border-subtle)";
-                  e.currentTarget.style.background =
-                    "rgba(255, 255, 255, 0.04)";
-                }}
-              >
-                <GithubIcon size={18} />
-              </a>
-
-              <a
-                href={CONTACT.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="LinkedIn Profile"
-                style={{
-                  width: 38,
-                  height: 38,
-                  borderRadius: "10px",
-                  background: "rgba(255, 255, 255, 0.04)",
-                  border: "1px solid var(--border-subtle)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "var(--text-secondary)",
-                  transition: "all 0.2s ease",
-                  textDecoration: "none",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = "#FFFFFF";
-                  e.currentTarget.style.borderColor = "var(--border-accent)";
-                  e.currentTarget.style.background = "rgba(56, 189, 248, 0.1)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = "var(--text-secondary)";
-                  e.currentTarget.style.borderColor = "var(--border-subtle)";
-                  e.currentTarget.style.background =
-                    "rgba(255, 255, 255, 0.04)";
-                }}
-              >
-                <LinkedinIcon size={18} />
-              </a>
-
-              <a
-                href={`mailto:${CONTACT.email}`}
-                aria-label="Send direct email"
-                style={{
-                  width: 38,
-                  height: 38,
-                  borderRadius: "10px",
-                  background: "rgba(255, 255, 255, 0.04)",
-                  border: "1px solid var(--border-subtle)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "var(--text-secondary)",
-                  transition: "all 0.2s ease",
-                  textDecoration: "none",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = "#FFFFFF";
-                  e.currentTarget.style.borderColor = "var(--border-accent)";
-                  e.currentTarget.style.background = "rgba(56, 189, 248, 0.1)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = "var(--text-secondary)";
-                  e.currentTarget.style.borderColor = "var(--border-subtle)";
-                  e.currentTarget.style.background =
-                    "rgba(255, 255, 255, 0.04)";
-                }}
-              >
-                <MailIcon size={18} />
-              </a>
+              VOL. 2026 // MONOGRAPH
             </div>
+            <span className="tech-badge">
+              <span
+                style={{
+                  width: "4px",
+                  height: "4px",
+                  borderRadius: "50%",
+                  backgroundColor: "var(--accent-vermilion)",
+                }}
+              />
+              <span>33.8688° S, 151.2093° E</span>
+            </span>
+          </div>
+          <div
+            className="font-mono text-xs uppercase"
+            style={{ color: "var(--ink-secondary)" }}
+          >
+            FULL-STACK SYSTEMS • EXPLAINABLE ML • CRYPTOGRAPHY
+          </div>
+          <div
+            className="font-mono text-xs uppercase"
+            style={{ color: "var(--ink-tertiary)" }}
+          >
+            USYD_COMP_SCI // SYS.NOMINAL
           </div>
         </div>
 
-        {/* Right Column: Interactive Developer Terminal */}
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <HeroTerminal />
+        {/* Oversized Publication Title */}
+        <div style={{ marginBottom: "44px" }}>
+          <h1
+            className="font-display font-bold uppercase"
+            style={{
+              fontSize: "clamp(2.8rem, 8.2vw, 6.8rem)",
+              lineHeight: 0.95,
+              letterSpacing: "-0.04em",
+              color: "var(--ink-primary)",
+              margin: "0 0 12px 0",
+              wordBreak: "break-word",
+            }}
+          >
+            Abhinav Saxena
+          </h1>
+          <div
+            className="font-display font-bold uppercase"
+            style={{
+              fontSize: "clamp(1.6rem, 4.4vw, 3.8rem)",
+              lineHeight: 1.02,
+              letterSpacing: "-0.03em",
+              color: "var(--ink-secondary)",
+              margin: 0,
+            }}
+          >
+            Software Systems &amp; Applied AI.
+          </div>
+        </div>
+
+        {/* Asymmetrical Editorial Grid */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1.2fr 0.8fr",
+            gap: "56px",
+            alignItems: "start",
+          }}
+          className="hero-editorial-layout"
+        >
+          {/* Left Column: Thesis Statement & Action Triggers */}
+          <div>
+            <p
+              style={{
+                fontSize: "clamp(1.1rem, 2vw, 1.4rem)",
+                lineHeight: 1.55,
+                color: "var(--ink-primary)",
+                fontWeight: 400,
+                margin: "0 0 28px 0",
+                maxWidth: "680px",
+              }}
+            >
+              Building software across the boundaries of high-concurrency
+              backend services, explainable machine learning architectures, and
+              cryptographic security layers.
+            </p>
+
+            <p
+              style={{
+                fontSize: "0.98rem",
+                lineHeight: 1.7,
+                color: "var(--ink-secondary)",
+                margin: "0 0 36px 0",
+                maxWidth: "620px",
+              }}
+            >
+              Ex-Founding engineer at <strong>Esprit Analytique</strong> (scaled
+              from zero to production public deployment with 65+ Django APIs and
+              AES+RSA protection) and currently pursuing a{" "}
+              <strong>Master of Computer Science (Advanced Entry)</strong> at{" "}
+              <strong>The University of Sydney</strong>.
+            </p>
+
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "12px",
+                alignItems: "center",
+              }}
+            >
+              <EditorialButton
+                variant="primary"
+                size="md"
+                onClick={() => onNavigate("projects")}
+                arrow="right"
+              >
+                Selected Work
+              </EditorialButton>
+
+              <EditorialButton
+                variant="secondary"
+                size="md"
+                onClick={() => onNavigate("contact")}
+                arrow="up-right"
+              >
+                Initiate Contact
+              </EditorialButton>
+
+              <EditorialButton
+                variant="secondary"
+                size="md"
+                as="a"
+                href="/CV-Resume.zip"
+                download="Abhinav_Saxena_CV_Resume.zip"
+                arrow="up-right"
+              >
+                CV / Resume
+              </EditorialButton>
+            </div>
+
+            {/* 3D Vector Surface Elevation Wave */}
+            <Interactive3DWave />
+          </div>
+
+          {/* Right Column: Specification & Benchmark Table */}
+          <div
+            style={{
+              borderLeft: "1px solid var(--rule-hairline)",
+              paddingLeft: "36px",
+            }}
+            className="hero-spec-col"
+          >
+            {/* Interactive 3D Geometry */}
+            <div className="crosshair-box" style={{ marginBottom: "24px" }}>
+              <Interactive3DObject />
+            </div>
+
+            <div
+              className="font-mono text-xs uppercase"
+              style={{
+                color: "var(--accent-vermilion)",
+                letterSpacing: "0.1em",
+                fontWeight: 600,
+                marginBottom: "16px",
+              }}
+            >
+              // SPECIFICATION SHEET
+            </div>
+
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "14px" }}
+            >
+              <div
+                style={{
+                  paddingBottom: "12px",
+                  borderBottom: "1px solid var(--rule-hairline)",
+                }}
+              >
+                <div
+                  className="font-mono text-xs text-secondary"
+                  style={{ color: "var(--ink-tertiary)" }}
+                >
+                  CURRENT_AFFILIATION
+                </div>
+                <div
+                  style={{
+                    fontWeight: 600,
+                    fontSize: "0.95rem",
+                    color: "var(--ink-primary)",
+                    marginTop: "2px",
+                  }}
+                >
+                  The University of Sydney
+                </div>
+                <div
+                  style={{ fontSize: "0.82rem", color: "var(--ink-secondary)" }}
+                >
+                  Master of Computer Science (Advanced Entry)
+                </div>
+              </div>
+
+              <div
+                style={{
+                  paddingBottom: "12px",
+                  borderBottom: "1px solid var(--rule-hairline)",
+                }}
+              >
+                <div
+                  className="font-mono text-xs text-secondary"
+                  style={{ color: "var(--ink-tertiary)" }}
+                >
+                  PRODUCTION_BENCHMARKS
+                </div>
+                <div
+                  className="font-mono text-xs"
+                  style={{
+                    marginTop: "4px",
+                    color: "var(--ink-primary)",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  <div>• 65+ REST APIs Engineered in Production</div>
+                  <div>• 100+ Hybrid AES/RSA Secure Transactions</div>
+                  <div>• 99.9% Uptime under AWS EC2 Docker load</div>
+                </div>
+              </div>
+
+              <div>
+                <div
+                  className="font-mono text-xs text-secondary"
+                  style={{ color: "var(--ink-tertiary)" }}
+                >
+                  DIRECT_CHANNELS
+                </div>
+                <div
+                  className="font-mono text-xs"
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "6px",
+                    marginTop: "6px",
+                  }}
+                >
+                  <a
+                    href={CONTACT.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="editorial-link"
+                  >
+                    GITHUB: Abhinav0915 ↗
+                  </a>
+                  <a
+                    href={CONTACT.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="editorial-link"
+                  >
+                    LINKEDIN: in/abhinav1506 ↗
+                  </a>
+                  <a
+                    href={`mailto:${CONTACT.email}`}
+                    className="editorial-link"
+                  >
+                    EMAIL: {CONTACT.email} ↗
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Scroll Down Indicator */}
-      <button
-        onClick={() => onNavigate("about")}
-        aria-label="Scroll to About section"
-        style={{
-          position: "absolute",
-          bottom: "20px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          background: "none",
-          border: "none",
-          color: "var(--text-tertiary)",
-          cursor: "pointer",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "4px",
-          fontFamily: "var(--font-mono)",
-          fontSize: "0.72rem",
-          transition: "color 0.2s ease",
-        }}
-        onMouseEnter={(e) =>
-          (e.currentTarget.style.color = "var(--accent-cyan)")
-        }
-        onMouseLeave={(e) =>
-          (e.currentTarget.style.color = "var(--text-tertiary)")
-        }
-      >
-        <span>DISCOVER</span>
-        <ArrowDownIcon size={16} />
-      </button>
-
-      {/* Responsive layout styles */}
       <style>{`
-        @media (max-width: 960px) {
-          .hero-grid-layout {
-            grid-template-columns: 1fr !important;
-            gap: 40px !important;
-          }
+        @media (max-width: 860px) {
+          .hero-editorial-layout { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .hero-spec-col { border-left: none !important; padding-left: 0 !important; border-top: 1px solid var(--rule-hairline) !important; padding-top: 24px !important; }
         }
       `}</style>
     </section>

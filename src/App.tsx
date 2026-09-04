@@ -1,21 +1,22 @@
 import { useState, useEffect } from "react";
-import { Navbar } from "./components/navbar/Navbar";
-import { TechBackground } from "./components/background/TechBackground";
+import { EditorialHeader } from "./components/navbar/EditorialHeader";
 import { Hero } from "./components/hero/Hero";
 import { About } from "./components/about/About";
-import { Skills } from "./components/skills/Skills";
 import { Projects } from "./components/projects/Projects";
+import { Skills } from "./components/skills/Skills";
 import { Experience } from "./components/experience/Experience";
 import { Academics } from "./components/academics/Academics";
 import { Contact } from "./components/contact/Contact";
 import { Footer } from "./components/footer/Footer";
-import { ArrowUpIcon } from "./components/common/Icons";
+import { KineticMarquee } from "./components/common/KineticMarquee";
+import { CommandPalette } from "./components/common/CommandPalette";
+import { EngineeringHUD } from "./components/common/EngineeringHUD";
 
 const SECTIONS = [
   "hero",
   "about",
-  "skills",
   "projects",
+  "skills",
   "experience",
   "academics",
   "contact",
@@ -23,13 +24,48 @@ const SECTIONS = [
 
 export default function App() {
   const [activeSection, setActiveSection] = useState<string>("hero");
-  const [showScrollTop, setShowScrollTop] = useState<boolean>(false);
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+  const [isDark, setIsDark] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("theme");
+      if (saved === "light") return false;
+      return true; // default dark mode
+    }
+    return true;
+  });
+
+  // Sync theme attribute with html element and localStorage
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.setAttribute("data-theme", "dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+      localStorage.setItem("theme", "light");
+    }
+  }, [isDark]);
+
+  // Global hotkeys for command palette (Cmd+K, Ctrl+K, or /)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setIsCommandPaletteOpen((prev) => !prev);
+      } else if (
+        e.key === "/" &&
+        !["INPUT", "TEXTAREA"].includes((e.target as HTMLElement).tagName)
+      ) {
+        e.preventDefault();
+        setIsCommandPaletteOpen(true);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 500);
-
-      const scrollPosition = window.scrollY + 200;
+      const scrollPosition = window.scrollY + 180;
       for (const sectionId of SECTIONS) {
         const element = document.getElementById(sectionId);
         if (element) {
@@ -51,7 +87,7 @@ export default function App() {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      const topOffset = 80; // height of fixed navbar
+      const topOffset = 65; // height of sticky editorial header
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - topOffset;
 
@@ -71,70 +107,51 @@ export default function App() {
 
   return (
     <div
+      className="tech-blueprint-grid"
       style={{
         position: "relative",
         minHeight: "100vh",
-        backgroundColor: "var(--bg-base)",
-        color: "var(--text-primary)",
+        backgroundColor: "var(--bg-primary)",
+        color: "var(--ink-primary)",
+        paddingBottom: "36px",
       }}
     >
-      {/* High-performance background canvas & grid */}
-      <TechBackground />
+      {/* Editorial Grid Navigation */}
+      <EditorialHeader
+        activeSection={activeSection}
+        onNavigate={scrollToSection}
+        isDark={isDark}
+        onToggleTheme={() => setIsDark(!isDark)}
+      />
 
-      {/* Floating navigation bar */}
-      <Navbar activeSection={activeSection} onNavigate={scrollToSection} />
-
-      {/* Main Content Sections */}
-      <main style={{ position: "relative", zIndex: 1 }}>
+      {/* Main Publication Sections */}
+      <main>
         <Hero onNavigate={scrollToSection} />
+        <KineticMarquee />
         <About />
-        <Skills onSelectSkill={() => scrollToSection("projects")} />
         <Projects />
+        <Skills />
         <Experience />
         <Academics />
         <Contact />
       </main>
 
-      {/* Footer */}
+      {/* Typographic Colophon Footer */}
       <Footer onScrollToTop={scrollToTop} />
 
-      {/* Floating Back-to-Top Action */}
-      {showScrollTop && (
-        <button
-          onClick={scrollToTop}
-          aria-label="Back to top"
-          style={{
-            position: "fixed",
-            bottom: "24px",
-            right: "24px",
-            zIndex: 90,
-            width: "42px",
-            height: "42px",
-            borderRadius: "50%",
-            background: "rgba(14, 18, 26, 0.9)",
-            border: "1px solid var(--border-accent)",
-            color: "var(--accent-cyan)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
-            boxShadow: "0 0 20px rgba(0, 229, 255, 0.25)",
-            transition: "all 0.2s ease",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = "translateY(-3px)";
-            e.currentTarget.style.background = "var(--accent-cyan)";
-            e.currentTarget.style.color = "#000000";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = "translateY(0)";
-            e.currentTarget.style.background = "rgba(14, 18, 26, 0.9)";
-            e.currentTarget.style.color = "var(--accent-cyan)";
-          }}
-        >
-          <ArrowUpIcon size={18} />
-        </button>
-      )}
+      {/* Real-time Engineering Telemetry HUD Bar */}
+      <EngineeringHUD
+        onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
+      />
+
+      {/* Interactive Command Palette (Cmd+K) */}
+      <CommandPalette
+        isOpen={isCommandPaletteOpen}
+        onClose={() => setIsCommandPaletteOpen(false)}
+        onNavigate={scrollToSection}
+        isDark={isDark}
+        onToggleTheme={() => setIsDark(!isDark)}
+      />
     </div>
   );
 }

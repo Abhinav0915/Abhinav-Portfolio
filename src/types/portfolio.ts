@@ -85,6 +85,7 @@ export type CertificationItem = {
   issuer: string;
   date: string;
   credentialId?: string;
+  url?: string;
 };
 
 export type AchievementItem = {

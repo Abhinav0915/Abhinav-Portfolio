@@ -331,6 +331,7 @@ export const PROJECTS: ProjectItem[] = [
     link: null,
     github: "https://github.com/Abhinav0915",
   },
+  // Aarya Spicy Food
   {
     id: "aarya-spicy-food",
     name: "Aarya's Spicy Food",
@@ -359,8 +360,9 @@ export const PROJECTS: ProjectItem[] = [
     featured: false,
     metrics: ["Cloud-Native Setup", "Sub-second Order Sync", "Role-Based Auth"],
     link: "https://aarya-spicy-food-babe2.firebaseapp.com/",
-    github: "https://github.com/Abhinav0915",
+    github: "https://github.com/Abhinav0915/aarya-spicy-food",
   },
+  // Jamaican Patty House
   {
     id: "jamaican-patty-house",
     name: "Jamaican Patty House",
@@ -377,8 +379,9 @@ export const PROJECTS: ProjectItem[] = [
     ],
     featured: false,
     link: "https://jamaicanpatty-e25a2.web.app/",
-    github: "https://github.com/Abhinav0915",
+    github: "https://github.com/Abhinav0915/JamaicanPattyBakehouse",
   },
+  // Prodigidesk
   {
     id: "prodigidesk",
     name: "ProdigiDesk",
@@ -406,6 +409,7 @@ export const PROJECTS: ProjectItem[] = [
     link: "https://prodigidesk.ai",
     github: null,
   },
+  // Localise
   {
     id: "localise",
     name: "Localise",
@@ -432,8 +436,9 @@ export const PROJECTS: ProjectItem[] = [
     ],
     featured: false,
     link: "https://localisfe.onrender.com/",
-    github: "https://github.com/Abhinav0915",
+    github: "https://github.com/Abhinav0915/LocalisFE",
   },
+  // PISCA
   {
     id: "pisca",
     name: "PISCA",
@@ -449,8 +454,9 @@ export const PROJECTS: ProjectItem[] = [
     ],
     featured: false,
     link: null,
-    github: "https://github.com/Abhinav0915",
+    github: null,
   },
+  // QR Code Generator
   {
     id: "qr-code-gen",
     name: "QR Code Generator",
@@ -466,8 +472,9 @@ export const PROJECTS: ProjectItem[] = [
     ],
     featured: false,
     link: null,
-    github: "https://github.com/Abhinav0915",
+    github: null,
   },
+  // Inbound Scanning
   {
     id: "inbound-scanning",
     name: "Inbound Scanning",
@@ -483,7 +490,7 @@ export const PROJECTS: ProjectItem[] = [
     ],
     featured: false,
     link: null,
-    github: "https://github.com/Abhinav0915",
+    github: null,
   },
 ];
 
@@ -523,54 +530,64 @@ export const EDUCATION: EducationItem[] = [
 
 export const CERTIFICATIONS: CertificationItem[] = [
   {
-    name: "HTML, CSS, and JavaScript for Web Developers",
+    name: "HTML, CSS, and Javascript for Web Developers",
     issuer: "Johns Hopkins University / Coursera",
     date: "July 2026",
+    url: "https://coursera.org/share/8eeb70e04596c4664aed85c51ee8e0b1",
   },
   {
     name: "Natural Language Processing with Classification and Vector Spaces",
     issuer: "DeepLearning.AI",
     date: "September 2023",
+    url: "https://coursera.org/share/dfcbcf47175aeedcdf7e3d6334e22ce1",
   },
   {
     name: "Machine Learning Engineering for Production (MLOps)",
     issuer: "DeepLearning.AI",
     date: "April 2023",
+    url: "https://coursera.org/share/a7979ccef7ef7b5112bb1184cc4bb7aa",
   },
   {
     name: "Graph Analytics for Big Data",
     issuer: "UC San Diego",
     date: "April 2023",
+    url: "https://coursera.org/share/586cf6b8ab21ce0cd1f1fae3d6c761e2",
   },
   {
     name: "Optimizing a Website for Google Search",
     issuer: "University of California, Davis",
     date: "March 2023",
+    url: "https://coursera.org/share/896564c0fbfd9e4350992bb8eaa4cb11",
   },
   {
     name: "Natural Language Processing with Sequence Models",
     issuer: "DeepLearning.AI",
     date: "September 2022",
+    url: "https://coursera.org/share/862e5f1cc13fd2bf180ac3ec64c02bec",
   },
   {
     name: "Natural Language Processing with Probabilistic Models",
     issuer: "DeepLearning.AI",
     date: "September 2022",
+    url: "https://coursera.org/share/794136694031c2ea8c62ee81dd4960c3",
   },
   {
     name: "Introduction to Artificial Intelligence (AI)",
     issuer: "IBM",
     date: "January 2022",
+    url: "https://coursera.org/share/801e9d10c51e42f8271292d3789cc3af",
   },
   {
     name: "Machine Learning",
     issuer: "Stanford University / Coursera",
     date: "November 2021",
+    url: "https://coursera.org/share/1486021a5e28898077e1c7d56f80bc6e",
   },
   {
     name: "Data Structures",
     issuer: "UC San Diego",
     date: "November 2021",
+    url: "https://coursera.org/share/4a477c575211191adca2e6a8e8a44fe7",
   },
 ];
 

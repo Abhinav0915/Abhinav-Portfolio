@@ -1,29 +1,19 @@
 import React, { useState } from "react";
 import { CONTACT } from "../../data/portfolioData";
-import { SectionHeader } from "../common/SectionHeader";
-import { GlowButton } from "../common/GlowButton";
-import {
-  MailIcon,
-  PhoneIcon,
-  LinkedinIcon,
-  GithubIcon,
-  SendIcon,
-  CheckCircleIcon,
-  CloseIcon,
-  CopyIcon,
-} from "../common/Icons";
+import { EditorialButton } from "../common/EditorialButton";
+import { Interactive3DBeacon } from "../common/Interactive3DBeacon";
 
 export const Contact: React.FC = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(CONTACT.email);
-    setCopiedEmail(true);
-    setTimeout(() => setCopiedEmail(false), 2500);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -60,7 +50,7 @@ export const Contact: React.FC = () => {
       );
 
       if (!response.ok) {
-        throw new Error("Form submission returned an error status.");
+        throw new Error("Transmission error.");
       }
 
       setSent(true);
@@ -68,7 +58,7 @@ export const Contact: React.FC = () => {
       setTimeout(() => setSent(false), 6000);
     } catch {
       setError(
-        "Unable to transmit message at this time. Please reach out directly to abhinavv1509@gmail.com.",
+        "Transmission failed. Please reach out directly to abhinavv1509@gmail.com.",
       );
     } finally {
       setIsSubmitting(false);
@@ -79,503 +69,408 @@ export const Contact: React.FC = () => {
     <section
       id="contact"
       style={{
-        padding: "110px 24px",
-        background: "rgba(10, 13, 20, 0.8)",
-        borderTop: "1px solid var(--border-subtle)",
-        position: "relative",
+        paddingTop: "100px",
+        paddingBottom: "100px",
       }}
     >
-      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-        <SectionHeader
-          index="06"
-          eyebrow="COMMUNICATION PROTOCOL"
-          title="Let's build something serious."
-          subtitle="Whether discussing distributed backend systems, AI inference architectures, or full-stack software opportunities, my inbox is always open."
-        />
+      <div className="editorial-container">
+        {/* Editorial Closing Header */}
+        <div style={{ marginBottom: "56px" }}>
+          <div
+            className="font-mono text-xs uppercase"
+            style={{
+              color: "var(--accent-vermilion)",
+              fontWeight: 600,
+              marginBottom: "16px",
+            }}
+          >
+            // 06 // INITIATE DIALOGUE
+          </div>
 
+          <h2
+            className="font-display font-bold uppercase"
+            style={{
+              fontSize: "clamp(2.8rem, 7.5vw, 6.2rem)",
+              lineHeight: 0.95,
+              letterSpacing: "-0.04em",
+              color: "var(--ink-primary)",
+              margin: "0 0 16px 0",
+            }}
+          >
+            Have a project
+            <br />
+            worth building?
+          </h2>
+
+          <div
+            className="font-display font-bold uppercase"
+            style={{
+              fontSize: "clamp(2.2rem, 5.5vw, 4.8rem)",
+              lineHeight: 1,
+              letterSpacing: "-0.03em",
+              color: "var(--accent-vermilion)",
+              margin: 0,
+            }}
+          >
+            Let's talk.
+          </div>
+        </div>
+
+        {/* 2-Column Asymmetric Grid: Direct Details + Dispatch Form */}
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "1fr 1.3fr",
-            gap: "48px",
+            gridTemplateColumns: "1fr 1.2fr",
+            gap: "56px",
             alignItems: "start",
+            borderTop: "1px solid var(--rule-hairline)",
+            paddingTop: "40px",
           }}
-          className="contact-grid-layout"
+          className="contact-editorial-layout"
         >
-          {/* Left Column: Direct Connection Channels & Terminal Badge */}
+          {/* Left Column: Direct Inquiries */}
           <div>
-            {/* Terminal Init Snippet */}
-            <div
-              className="cyber-panel corner-brackets scanline-subtle"
+            <p
               style={{
-                padding: "20px 22px",
-                background: "rgba(14, 18, 26, 0.85)",
-                border: "1px solid var(--border-subtle)",
-                borderRadius: "12px",
-                marginBottom: "24px",
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.8rem",
-                lineHeight: 1.65,
+                fontSize: "1.05rem",
+                lineHeight: 1.7,
+                color: "var(--ink-secondary)",
+                margin: "0 0 32px 0",
+                maxWidth: "480px",
               }}
             >
-              <div style={{ color: "var(--accent-cyan)", marginBottom: "4px" }}>
-                &gt; initialize_connection()
+              Whether you are discussing engineering opportunities, distributed
+              backend architecture, explainable AI research, or consulting
+              inquiries—my communication channel is open.
+            </p>
+
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "20px" }}
+            >
+              <div
+                style={{
+                  borderBottom: "1px solid var(--rule-hairline)",
+                  paddingBottom: "14px",
+                }}
+              >
+                <div
+                  className="font-mono text-xs text-secondary"
+                  style={{ color: "var(--ink-tertiary)" }}
+                >
+                  PRIMARY_EMAIL
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "12px",
+                    marginTop: "4px",
+                  }}
+                >
+                  <a
+                    href={`mailto:${CONTACT.email}`}
+                    style={{
+                      fontWeight: 600,
+                      fontSize: "1.05rem",
+                      color: "var(--ink-primary)",
+                      textDecoration: "none",
+                    }}
+                    onMouseEnter={(e) =>
+                      (e.currentTarget.style.color = "var(--accent-vermilion)")
+                    }
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.color = "var(--ink-primary)")
+                    }
+                  >
+                    {CONTACT.email}
+                  </a>
+                  <button
+                    type="button"
+                    onClick={handleCopyEmail}
+                    className="font-mono text-xs"
+                    style={{
+                      background: "none",
+                      border: "1px solid var(--rule-hairline)",
+                      padding: "2px 8px",
+                      cursor: "pointer",
+                      color: copied
+                        ? "var(--accent-vermilion)"
+                        : "var(--ink-secondary)",
+                    }}
+                  >
+                    {copied ? "[COPIED]" : "[COPY]"}
+                  </button>
+                </div>
               </div>
-              <div style={{ color: "var(--text-secondary)" }}>
-                [STATUS]:{" "}
-                <span style={{ color: "var(--accent-emerald)" }}>
-                  READY_FOR_COMMUNICATION
-                </span>
+
+              <div
+                style={{
+                  borderBottom: "1px solid var(--rule-hairline)",
+                  paddingBottom: "14px",
+                }}
+              >
+                <div
+                  className="font-mono text-xs text-secondary"
+                  style={{ color: "var(--ink-tertiary)" }}
+                >
+                  TELEPHONE
+                </div>
+                <div
+                  style={{
+                    fontWeight: 600,
+                    fontSize: "1.05rem",
+                    color: "var(--ink-primary)",
+                    marginTop: "4px",
+                  }}
+                >
+                  <a
+                    href={`tel:${CONTACT.phone.replace(/\s/g, "")}`}
+                    style={{ color: "inherit", textDecoration: "none" }}
+                  >
+                    {CONTACT.phone}
+                  </a>
+                </div>
               </div>
-              <div style={{ color: "var(--text-secondary)" }}>
-                [LOCATION]: Sydney, Australia [UTC+10]
+
+              <div
+                style={{
+                  borderBottom: "1px solid var(--rule-hairline)",
+                  paddingBottom: "14px",
+                }}
+              >
+                <div
+                  className="font-mono text-xs text-secondary"
+                  style={{ color: "var(--ink-tertiary)" }}
+                >
+                  GEOGRAPHIC_LOCATION
+                </div>
+                <div
+                  style={{
+                    fontWeight: 600,
+                    fontSize: "1.05rem",
+                    color: "var(--ink-primary)",
+                    marginTop: "4px",
+                  }}
+                >
+                  {CONTACT.location} [UTC+10]
+                </div>
               </div>
-              <div style={{ color: "var(--text-secondary)" }}>
-                [LATENCY]: &lt; 24h typical response
+
+              <div>
+                <div
+                  className="font-mono text-xs text-secondary"
+                  style={{ color: "var(--ink-tertiary)" }}
+                >
+                  NETWORKS
+                </div>
+                <div
+                  className="font-mono text-sm"
+                  style={{ display: "flex", gap: "16px", marginTop: "6px" }}
+                >
+                  <a
+                    href={CONTACT.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="editorial-link"
+                  >
+                    GITHUB ↗
+                  </a>
+                  <a
+                    href={CONTACT.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="editorial-link"
+                  >
+                    LINKEDIN ↗
+                  </a>
+                </div>
               </div>
             </div>
 
-            {/* Direct Channel Cards */}
-            <div
-              style={{ display: "flex", flexDirection: "column", gap: "12px" }}
-            >
-              {/* Email Card with 1-click Copy */}
-              <div
-                className="cyber-panel"
-                style={{
-                  padding: "16px 20px",
-                  background: "rgba(14, 18, 26, 0.7)",
-                  border: "1px solid var(--border-subtle)",
-                  borderRadius: "10px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <a
-                  href={`mailto:${CONTACT.email}`}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "14px",
-                    textDecoration: "none",
-                    color: "inherit",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: 38,
-                      height: 38,
-                      borderRadius: "8px",
-                      background: "rgba(56, 189, 248, 0.12)",
-                      border: "1px solid rgba(56, 189, 248, 0.25)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "var(--accent-blue)",
-                    }}
-                  >
-                    <MailIcon size={17} />
-                  </div>
-                  <div>
-                    <div className="font-mono text-xs text-tertiary">
-                      PRIMARY_EMAIL
-                    </div>
-                    <div
-                      style={{
-                        fontWeight: 600,
-                        fontSize: "0.92rem",
-                        color: "#FFFFFF",
-                      }}
-                    >
-                      {CONTACT.email}
-                    </div>
-                  </div>
-                </a>
-
-                <button
-                  onClick={handleCopyEmail}
-                  title="Copy email to clipboard"
-                  style={{
-                    background: "rgba(255, 255, 255, 0.05)",
-                    border: "1px solid rgba(255, 255, 255, 0.08)",
-                    borderRadius: "6px",
-                    color: copiedEmail
-                      ? "var(--accent-emerald)"
-                      : "var(--text-secondary)",
-                    cursor: "pointer",
-                    padding: "6px 10px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "6px",
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "0.72rem",
-                  }}
-                >
-                  {copiedEmail ? (
-                    <CheckCircleIcon size={14} />
-                  ) : (
-                    <CopyIcon size={14} />
-                  )}
-                  <span>{copiedEmail ? "Copied" : "Copy"}</span>
-                </button>
-              </div>
-
-              {/* Phone Card */}
-              <a
-                href={`tel:${CONTACT.phone.replace(/\s/g, "")}`}
-                className="cyber-panel"
-                style={{
-                  padding: "16px 20px",
-                  background: "rgba(14, 18, 26, 0.7)",
-                  border: "1px solid var(--border-subtle)",
-                  borderRadius: "10px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "14px",
-                  textDecoration: "none",
-                  color: "inherit",
-                }}
-              >
-                <div
-                  style={{
-                    width: 38,
-                    height: 38,
-                    borderRadius: "8px",
-                    background: "rgba(168, 85, 247, 0.12)",
-                    border: "1px solid rgba(168, 85, 247, 0.25)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "var(--accent-purple)",
-                  }}
-                >
-                  <PhoneIcon size={17} />
-                </div>
-                <div>
-                  <div className="font-mono text-xs text-tertiary">
-                    DIRECT_PHONE
-                  </div>
-                  <div
-                    style={{
-                      fontWeight: 600,
-                      fontSize: "0.92rem",
-                      color: "#FFFFFF",
-                    }}
-                  >
-                    {CONTACT.phone}
-                  </div>
-                </div>
-              </a>
-
-              {/* LinkedIn Card */}
-              <a
-                href={CONTACT.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className="cyber-panel"
-                style={{
-                  padding: "16px 20px",
-                  background: "rgba(14, 18, 26, 0.7)",
-                  border: "1px solid var(--border-subtle)",
-                  borderRadius: "10px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "14px",
-                  textDecoration: "none",
-                  color: "inherit",
-                }}
-              >
-                <div
-                  style={{
-                    width: 38,
-                    height: 38,
-                    borderRadius: "8px",
-                    background: "rgba(0, 229, 255, 0.12)",
-                    border: "1px solid rgba(0, 229, 255, 0.25)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "var(--accent-cyan)",
-                  }}
-                >
-                  <LinkedinIcon size={17} />
-                </div>
-                <div>
-                  <div className="font-mono text-xs text-tertiary">
-                    PROFESSIONAL_NETWORK
-                  </div>
-                  <div
-                    style={{
-                      fontWeight: 600,
-                      fontSize: "0.92rem",
-                      color: "#FFFFFF",
-                    }}
-                  >
-                    linkedin.com/in/abhinav1506
-                  </div>
-                </div>
-              </a>
-
-              {/* GitHub Card */}
-              <a
-                href={CONTACT.github}
-                target="_blank"
-                rel="noreferrer"
-                className="cyber-panel"
-                style={{
-                  padding: "16px 20px",
-                  background: "rgba(14, 18, 26, 0.7)",
-                  border: "1px solid var(--border-subtle)",
-                  borderRadius: "10px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "14px",
-                  textDecoration: "none",
-                  color: "inherit",
-                }}
-              >
-                <div
-                  style={{
-                    width: 38,
-                    height: 38,
-                    borderRadius: "8px",
-                    background: "rgba(255, 255, 255, 0.08)",
-                    border: "1px solid rgba(255, 255, 255, 0.15)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "#FFFFFF",
-                  }}
-                >
-                  <GithubIcon size={17} />
-                </div>
-                <div>
-                  <div className="font-mono text-xs text-tertiary">
-                    CODE_REPOSITORIES
-                  </div>
-                  <div
-                    style={{
-                      fontWeight: 600,
-                      fontSize: "0.92rem",
-                      color: "#FFFFFF",
-                    }}
-                  >
-                    github.com/Abhinav0915
-                  </div>
-                </div>
-              </a>
+            {/* 3D Quantum Transmission Beacon */}
+            <div style={{ marginTop: "28px" }}>
+              <Interactive3DBeacon className="crosshair-box" />
             </div>
           </div>
 
-          {/* Right Column: High-Grade Contact Form */}
-          <div>
-            <form
-              onSubmit={handleSubmit}
-              className="cyber-panel corner-brackets"
+          {/* Right Column: Sharp Publication Contact Form */}
+          <div
+            style={{
+              backgroundColor: "var(--bg-secondary)",
+              border: "1px solid var(--rule-hairline)",
+              padding: "36px",
+            }}
+            className="contact-form-box"
+          >
+            <div
+              className="font-mono text-xs uppercase"
               style={{
-                padding: "32px 34px",
-                background: "rgba(14, 18, 26, 0.85)",
-                border: "1px solid var(--border-subtle)",
-                borderRadius: "14px",
+                color: "var(--accent-vermilion)",
+                fontWeight: 600,
+                marginBottom: "20px",
               }}
             >
-              <div
-                className="font-mono text-xs uppercase"
-                style={{
-                  color: "var(--accent-cyan)",
-                  letterSpacing: "0.1em",
-                  marginBottom: "20px",
-                }}
-              >
-                // TRANSMIT_MESSAGE
-              </div>
+              // DISPATCH_TRANSMISSION
+            </div>
 
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  gap: "16px",
-                  marginBottom: "16px",
-                }}
-                className="contact-form-grid"
-              >
-                <div>
-                  <label
-                    htmlFor="name-input"
-                    className="font-mono text-xs"
-                    style={{
-                      display: "block",
-                      color: "var(--text-secondary)",
-                      marginBottom: "6px",
-                    }}
-                  >
-                    IDENTIFIER / NAME *
-                  </label>
-                  <input
-                    id="name-input"
-                    type="text"
-                    required
-                    value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    placeholder="Jane Doe / Acme Corp"
-                    style={{
-                      width: "100%",
-                      padding: "12px 14px",
-                      background: "rgba(8, 9, 12, 0.8)",
-                      border: "1px solid var(--border-subtle)",
-                      borderRadius: "8px",
-                      color: "#FFFFFF",
-                      fontFamily: "var(--font-sans)",
-                      fontSize: "0.92rem",
-                      outline: "none",
-                    }}
-                    onFocus={(e) =>
-                      (e.currentTarget.style.borderColor = "var(--accent-cyan)")
-                    }
-                    onBlur={(e) =>
-                      (e.currentTarget.style.borderColor =
-                        "var(--border-subtle)")
-                    }
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="email-input"
-                    className="font-mono text-xs"
-                    style={{
-                      display: "block",
-                      color: "var(--text-secondary)",
-                      marginBottom: "6px",
-                    }}
-                  >
-                    RETURN_EMAIL *
-                  </label>
-                  <input
-                    id="email-input"
-                    type="email"
-                    required
-                    value={form.email}
-                    onChange={(e) =>
-                      setForm({ ...form, email: e.target.value })
-                    }
-                    placeholder="jane@company.com"
-                    style={{
-                      width: "100%",
-                      padding: "12px 14px",
-                      background: "rgba(8, 9, 12, 0.8)",
-                      border: "1px solid var(--border-subtle)",
-                      borderRadius: "8px",
-                      color: "#FFFFFF",
-                      fontFamily: "var(--font-sans)",
-                      fontSize: "0.92rem",
-                      outline: "none",
-                    }}
-                    onFocus={(e) =>
-                      (e.currentTarget.style.borderColor = "var(--accent-cyan)")
-                    }
-                    onBlur={(e) =>
-                      (e.currentTarget.style.borderColor =
-                        "var(--border-subtle)")
-                    }
-                  />
-                </div>
-              </div>
-
-              <div style={{ marginBottom: "22px" }}>
+            <form
+              onSubmit={handleSubmit}
+              style={{ display: "flex", flexDirection: "column", gap: "20px" }}
+            >
+              <div>
                 <label
-                  htmlFor="message-input"
-                  className="font-mono text-xs"
+                  htmlFor="contact-name"
+                  className="font-mono text-xs uppercase"
                   style={{
                     display: "block",
-                    color: "var(--text-secondary)",
+                    color: "var(--ink-secondary)",
                     marginBottom: "6px",
                   }}
                 >
-                  PROJECT_DETAILS / MESSAGE *
+                  YOUR NAME / AFFILIATION *
+                </label>
+                <input
+                  id="contact-name"
+                  type="text"
+                  required
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  placeholder="e.g. Jane Doe, Principal Engineer"
+                  style={{
+                    width: "100%",
+                    padding: "12px",
+                    backgroundColor: "var(--bg-surface)",
+                    border: "1px solid var(--rule-hairline)",
+                    borderRadius: "0px",
+                    color: "var(--ink-primary)",
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "0.95rem",
+                    outline: "none",
+                  }}
+                  onFocus={(e) =>
+                    (e.currentTarget.style.borderColor = "var(--ink-primary)")
+                  }
+                  onBlur={(e) =>
+                    (e.currentTarget.style.borderColor = "var(--rule-hairline)")
+                  }
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="contact-email"
+                  className="font-mono text-xs uppercase"
+                  style={{
+                    display: "block",
+                    color: "var(--ink-secondary)",
+                    marginBottom: "6px",
+                  }}
+                >
+                  YOUR EMAIL ADDRESS *
+                </label>
+                <input
+                  id="contact-email"
+                  type="email"
+                  required
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  placeholder="e.g. jane@organization.com"
+                  style={{
+                    width: "100%",
+                    padding: "12px",
+                    backgroundColor: "var(--bg-surface)",
+                    border: "1px solid var(--rule-hairline)",
+                    borderRadius: "0px",
+                    color: "var(--ink-primary)",
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "0.95rem",
+                    outline: "none",
+                  }}
+                  onFocus={(e) =>
+                    (e.currentTarget.style.borderColor = "var(--ink-primary)")
+                  }
+                  onBlur={(e) =>
+                    (e.currentTarget.style.borderColor = "var(--rule-hairline)")
+                  }
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="contact-message"
+                  className="font-mono text-xs uppercase"
+                  style={{
+                    display: "block",
+                    color: "var(--ink-secondary)",
+                    marginBottom: "6px",
+                  }}
+                >
+                  TRANSMISSION MESSAGE *
                 </label>
                 <textarea
-                  id="message-input"
+                  id="contact-message"
                   rows={5}
                   required
                   value={form.message}
                   onChange={(e) =>
                     setForm({ ...form, message: e.target.value })
                   }
-                  placeholder="Outline your engineering project, role specifications, or technical query..."
+                  placeholder="Detail your engineering specifications, role proposal, or research query..."
                   style={{
                     width: "100%",
-                    padding: "12px 14px",
-                    background: "rgba(8, 9, 12, 0.8)",
-                    border: "1px solid var(--border-subtle)",
-                    borderRadius: "8px",
-                    color: "#FFFFFF",
+                    padding: "12px",
+                    backgroundColor: "var(--bg-surface)",
+                    border: "1px solid var(--rule-hairline)",
+                    borderRadius: "0px",
+                    color: "var(--ink-primary)",
                     fontFamily: "var(--font-sans)",
-                    fontSize: "0.92rem",
-                    resize: "vertical",
+                    fontSize: "0.95rem",
                     outline: "none",
+                    resize: "vertical",
                   }}
                   onFocus={(e) =>
-                    (e.currentTarget.style.borderColor = "var(--accent-cyan)")
+                    (e.currentTarget.style.borderColor = "var(--ink-primary)")
                   }
                   onBlur={(e) =>
-                    (e.currentTarget.style.borderColor = "var(--border-subtle)")
+                    (e.currentTarget.style.borderColor = "var(--rule-hairline)")
                   }
                 />
               </div>
 
-              <GlowButton
-                variant="primary"
-                size="lg"
-                onClick={() => {}}
-                icon={isSubmitting ? undefined : <SendIcon size={16} />}
+              <EditorialButton
+                variant="vermilion"
+                size="md"
+                arrow="right"
                 style={{ width: "100%" }}
               >
-                {isSubmitting ? "Transmitting Packet..." : "Dispatch Message"}
-              </GlowButton>
+                {isSubmitting ? "DISPATCHING PACKET..." : "TRANSMIT MESSAGE"}
+              </EditorialButton>
 
-              {/* Feedback Toasts */}
               {sent && (
                 <div
+                  className="font-mono text-xs"
                   style={{
-                    marginTop: "16px",
-                    padding: "12px 16px",
-                    borderRadius: "8px",
-                    background: "rgba(16, 185, 129, 0.1)",
-                    border: "1px solid rgba(16, 185, 129, 0.3)",
-                    color: "var(--accent-emerald)",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "8px",
-                    fontSize: "0.88rem",
+                    padding: "10px",
+                    backgroundColor: "var(--bg-surface)",
+                    border: "1px solid var(--accent-vermilion)",
+                    color: "var(--accent-vermilion)",
                   }}
                 >
-                  <CheckCircleIcon size={16} />
-                  <span>
-                    Message delivered successfully. I will follow up via email
-                    promptly.
-                  </span>
+                  ✓ MESSAGE RECEIVED. I WILL REPLY PROMPTLY.
                 </div>
               )}
 
               {error && (
                 <div
+                  className="font-mono text-xs"
                   style={{
-                    marginTop: "16px",
-                    padding: "12px 16px",
-                    borderRadius: "8px",
-                    background: "rgba(239, 68, 68, 0.1)",
-                    border: "1px solid rgba(239, 68, 68, 0.3)",
-                    color: "#EF4444",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "8px",
-                    fontSize: "0.88rem",
+                    padding: "10px",
+                    backgroundColor: "var(--bg-surface)",
+                    border: "1px solid #DC2626",
+                    color: "#DC2626",
                   }}
                 >
-                  <CloseIcon size={16} />
-                  <span>{error}</span>
+                  ✕ {error}
                 </div>
               )}
             </form>
@@ -584,11 +479,9 @@ export const Contact: React.FC = () => {
       </div>
 
       <style>{`
-        @media (max-width: 900px) {
-          .contact-grid-layout { grid-template-columns: 1fr !important; }
-        }
-        @media (max-width: 600px) {
-          .contact-form-grid { grid-template-columns: 1fr !important; }
+        @media (max-width: 860px) {
+          .contact-editorial-layout { grid-template-columns: 1fr !important; gap: 36px !important; }
+          .contact-form-box { padding: 24px !important; }
         }
       `}</style>
     </section>

@@ -1,399 +1,306 @@
 import React from "react";
 import { STATS } from "../../data/portfolioData";
-import { SectionHeader } from "../common/SectionHeader";
-import { MetricCounter } from "./MetricCounter";
-import {
-  ServerIcon,
-  BrainCircuitIcon,
-  ShieldCheckIcon,
-  GraduationCapIcon,
-} from "../common/Icons";
+import { EditorialSectionHeading } from "../common/EditorialSectionHeading";
+import { Interactive3DTopology } from "../common/Interactive3DTopology";
+import { KineticMetric } from "./KineticMetric";
 
 export const About: React.FC = () => {
   return (
     <section
       id="about"
       style={{
-        padding: "110px 24px",
-        position: "relative",
-        borderTop: "1px solid var(--border-subtle)",
+        paddingTop: "90px",
+        paddingBottom: "90px",
+        borderBottom: "1px solid var(--rule-hairline)",
       }}
     >
-      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-        <SectionHeader
-          index="01"
-          eyebrow="ENGINEERING PROFILE"
-          title="Architecting software that stays secure, scalable, and quietly reliable."
-          subtitle="A blend of production engineering discipline and academic research in intelligent systems."
+      <div className="editorial-container">
+        <EditorialSectionHeading
+          number="01"
+          category="PROFILE &amp; MANIFESTO"
+          title="Architecting systems at the boundary of web engineering &amp; intelligence."
+          meta="BIO // PERSPECTIVE"
         />
 
+        {/* Asymmetrical Editorial Profile Grid */}
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "1.1fr 1fr",
-            gap: "48px",
+            gridTemplateColumns: "1.25fr 0.75fr",
+            gap: "56px",
             alignItems: "start",
-            marginBottom: "50px",
+            marginBottom: "72px",
           }}
-          className="about-split-layout"
+          className="about-editorial-layout"
         >
-          {/* Left Column: Narrative & Philosophy */}
+          {/* Main Narrative Column */}
           <div>
             <div
-              className="cyber-panel"
+              className="font-display"
               style={{
-                padding: "28px 30px",
-                border: "1px solid var(--border-medium)",
-                borderRadius: "14px",
-                background: "rgba(14, 18, 26, 0.7)",
+                fontSize: "clamp(1.25rem, 2.4vw, 1.7rem)",
+                lineHeight: 1.45,
+                color: "var(--ink-primary)",
+                fontWeight: 600,
+                marginBottom: "28px",
+                letterSpacing: "-0.02em",
               }}
             >
-              <div
-                className="font-mono text-xs uppercase"
-                style={{
-                  color: "var(--accent-cyan)",
-                  letterSpacing: "0.1em",
-                  marginBottom: "14px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "6px",
-                }}
-              >
-                <span>&gt;</span>
-                <span>ENGINEERING_THESIS</span>
-              </div>
-
-              <p
-                style={{
-                  fontSize: "1.05rem",
-                  lineHeight: 1.8,
-                  color: "var(--text-primary)",
-                  margin: "0 0 16px 0",
-                  fontWeight: 400,
-                }}
-              >
-                I'm a full-stack engineer and computer science graduate student
-                with a focus on high-throughput backend services, explainable
-                machine learning systems, and cryptographic security layers.
-              </p>
-
-              <p
-                style={{
-                  fontSize: "0.98rem",
-                  lineHeight: 1.75,
-                  color: "var(--text-secondary)",
-                  margin: "0 0 16px 0",
-                }}
-              >
-                As a founding engineer at <strong>Esprit Analytique</strong>, I
-                transitioned from an intern to permanent hire in 17 days and
-                grew to <strong>Lead Full Stack Developer</strong> within a
-                year. I spearheaded end-to-end architecture from an empty
-                repository to a production platform—deploying 65+ multithreaded
-                Django APIs, securing over 100 financial transactions with a
-                custom hybrid <strong>AES + RSA</strong> cryptographic envelope,
-                and containerizing on AWS EC2 with 99.9% uptime.
-              </p>
-
-              <p
-                style={{
-                  fontSize: "0.98rem",
-                  lineHeight: 1.75,
-                  color: "var(--text-secondary)",
-                  margin: 0,
-                }}
-              >
-                Currently pursuing a{" "}
-                <strong>Master of Computer Science (Advanced Entry)</strong> at{" "}
-                <strong>The University of Sydney</strong>, I combine rigorous
-                scientific principles with hard-earned production instincts:
-                encrypt first, benchmark under peak load, and build systems that
-                fail gracefully.
-              </p>
+              "Most software fails not because of the algorithm, but because of
+              poor boundary discipline—unhandled state, unmeasured latency, and
+              opaque failure modes."
             </div>
+
+            <p
+              style={{
+                fontSize: "1rem",
+                lineHeight: 1.75,
+                color: "var(--ink-secondary)",
+                margin: "0 0 20px 0",
+              }}
+            >
+              I am a software engineer and computer science graduate student
+              with a technical focus on high-throughput backend services,
+              explainable machine learning systems, and cryptographic security
+              layers.
+            </p>
+
+            <p
+              style={{
+                fontSize: "1rem",
+                lineHeight: 1.75,
+                color: "var(--ink-secondary)",
+                margin: "0 0 20px 0",
+              }}
+            >
+              As a ex-founding engineer at <strong>Esprit Analytique</strong>, I
+              converted from a 3-month internship to a permanent full-time
+              position in just 17 days, subsequently promoted to{" "}
+              <strong>Lead Full Stack Developer</strong> within a year. I took
+              the product from an empty Git repository to a production-ready
+              public deployment: architecting 65+ RESTful APIs in Django with
+              multithreading (yielding a 30% latency reduction), integrating
+              Razorpay with zero transaction errors, and engineering a custom
+              hybrid <strong>AES + RSA</strong> cryptographic envelope layer
+              securing every client-server exchange.
+            </p>
+
+            <p
+              style={{
+                fontSize: "1rem",
+                lineHeight: 1.75,
+                color: "var(--ink-secondary)",
+                margin: 0,
+              }}
+            >
+              My academic foundation includes a{" "}
+              <strong>B.Tech in Computer Science &amp; Engineering</strong> with
+              Honors (GPA 8.99/10.0), a national 4th place finish at the{" "}
+              <strong>Smart India Hackathon</strong>, and submitted deep
+              learning research on chest diagnostic imaging using VGG-16. I am
+              currently pursuing a{" "}
+              <strong>Master of Computer Science (Advanced Entry)</strong> at{" "}
+              <strong>The University of Sydney</strong>, applying empirical
+              research to scalable, observable software systems.
+            </p>
           </div>
 
-          {/* Right Column: Bento Technical Metadata Matrix */}
+          {/* Right Annotation Dossier */}
           <div
             style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "16px",
+              border: "1px solid var(--rule-hairline)",
+              padding: "28px",
+              backgroundColor: "var(--bg-secondary)",
             }}
-            className="about-bento-grid"
           >
-            {/* Focus 1 */}
             <div
-              className="cyber-panel cyber-panel-glow"
+              className="font-mono text-xs uppercase"
               style={{
-                padding: "20px",
-                background: "rgba(19, 24, 35, 0.7)",
+                color: "var(--accent-vermilion)",
+                letterSpacing: "0.1em",
+                fontWeight: 600,
+                marginBottom: "20px",
+                paddingBottom: "10px",
+                borderBottom: "1px solid var(--rule-hairline)",
               }}
             >
-              <div
-                style={{
-                  width: 34,
-                  height: 34,
-                  borderRadius: "8px",
-                  background: "rgba(56, 189, 248, 0.12)",
-                  border: "1px solid rgba(56, 189, 248, 0.25)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "var(--accent-blue)",
-                  marginBottom: "12px",
-                }}
-              >
-                <ServerIcon size={17} />
+              // DOSSIER INDEX
+            </div>
+
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "18px" }}
+            >
+              <div>
+                <div
+                  className="font-mono text-xs text-secondary"
+                  style={{ color: "var(--ink-tertiary)" }}
+                >
+                  LOCATION
+                </div>
+                <div
+                  style={{
+                    fontWeight: 600,
+                    color: "var(--ink-primary)",
+                    fontSize: "0.92rem",
+                    marginTop: "2px",
+                  }}
+                >
+                  Sydney, Australia [UTC+10]
+                </div>
               </div>
-              <div
-                className="font-mono text-xs uppercase"
-                style={{ color: "var(--accent-blue)", marginBottom: "4px" }}
-              >
-                CORE_FOCUS
+
+              <div>
+                <div
+                  className="font-mono text-xs text-secondary"
+                  style={{ color: "var(--ink-tertiary)" }}
+                >
+                  POSTGRADUATE STUDY
+                </div>
+                <div
+                  style={{
+                    fontWeight: 600,
+                    color: "var(--ink-primary)",
+                    fontSize: "0.92rem",
+                    marginTop: "2px",
+                  }}
+                >
+                  The University of Sydney
+                </div>
+                <div
+                  style={{ fontSize: "0.82rem", color: "var(--ink-secondary)" }}
+                >
+                  Master of Computer Science (Adv. Entry)
+                </div>
               </div>
-              <div
-                style={{
-                  fontWeight: 600,
-                  fontSize: "0.95rem",
-                  color: "#FFFFFF",
-                  marginBottom: "6px",
-                }}
-              >
-                Full-Stack Systems
+
+              <div>
+                <div
+                  className="font-mono text-xs text-secondary"
+                  style={{ color: "var(--ink-tertiary)" }}
+                >
+                  UNDERGRADUATE DEGREE
+                </div>
+                <div
+                  style={{
+                    fontWeight: 600,
+                    color: "var(--ink-primary)",
+                    fontSize: "0.92rem",
+                    marginTop: "2px",
+                  }}
+                >
+                  Bennett University
+                </div>
+                <div
+                  style={{ fontSize: "0.82rem", color: "var(--ink-secondary)" }}
+                >
+                  B.Tech, CSE — Honors (GPA 8.99/10.0)
+                </div>
               </div>
-              <div
-                style={{
-                  fontSize: "0.82rem",
-                  color: "var(--text-secondary)",
-                  lineHeight: 1.5,
-                }}
-              >
-                Scalable Django REST & Spring Boot APIs with React & Next.js
-                interfaces.
+
+              <div>
+                <div
+                  className="font-mono text-xs text-secondary"
+                  style={{ color: "var(--ink-tertiary)" }}
+                >
+                  RESEARCH DOMAINS
+                </div>
+                <div
+                  style={{
+                    fontWeight: 600,
+                    color: "var(--ink-primary)",
+                    fontSize: "0.92rem",
+                    marginTop: "2px",
+                  }}
+                >
+                  Explainable AI (SHAP), Latent Autoencoders, Cryptography
+                  (AES+RSA)
+                </div>
+              </div>
+
+              <div>
+                <div
+                  className="font-mono text-xs text-secondary"
+                  style={{ color: "var(--ink-tertiary)" }}
+                >
+                  STATUS
+                </div>
+                <div
+                  className="font-mono text-xs"
+                  style={{
+                    color: "var(--accent-vermilion)",
+                    marginTop: "2px",
+                    fontWeight: 600,
+                  }}
+                >
+                  AVAILABLE FOR OPPORTUNITIES
+                </div>
               </div>
             </div>
 
-            {/* Focus 2 */}
-            <div
-              className="cyber-panel cyber-panel-glow"
-              style={{
-                padding: "20px",
-                background: "rgba(19, 24, 35, 0.7)",
-              }}
-            >
-              <div
-                style={{
-                  width: 34,
-                  height: 34,
-                  borderRadius: "8px",
-                  background: "rgba(168, 85, 247, 0.12)",
-                  border: "1px solid rgba(168, 85, 247, 0.25)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "var(--accent-purple)",
-                  marginBottom: "12px",
-                }}
-              >
-                <BrainCircuitIcon size={17} />
-              </div>
-              <div
-                className="font-mono text-xs uppercase"
-                style={{ color: "var(--accent-purple)", marginBottom: "4px" }}
-              >
-                APPLIED_AI
-              </div>
-              <div
-                style={{
-                  fontWeight: 600,
-                  fontSize: "0.95rem",
-                  color: "#FFFFFF",
-                  marginBottom: "6px",
-                }}
-              >
-                Explainable ML
-              </div>
-              <div
-                style={{
-                  fontSize: "0.82rem",
-                  color: "var(--text-secondary)",
-                  lineHeight: 1.5,
-                }}
-              >
-                SHAP interpretability, PyTorch deep autoencoders & Isolation
-                Forest intrusion detection.
-              </div>
-            </div>
-
-            {/* Focus 3 */}
-            <div
-              className="cyber-panel cyber-panel-glow"
-              style={{
-                padding: "20px",
-                background: "rgba(19, 24, 35, 0.7)",
-              }}
-            >
-              <div
-                style={{
-                  width: 34,
-                  height: 34,
-                  borderRadius: "8px",
-                  background: "rgba(0, 229, 255, 0.12)",
-                  border: "1px solid rgba(0, 229, 255, 0.25)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "var(--accent-cyan)",
-                  marginBottom: "12px",
-                }}
-              >
-                <ShieldCheckIcon size={17} />
-              </div>
-              <div
-                className="font-mono text-xs uppercase"
-                style={{ color: "var(--accent-cyan)", marginBottom: "4px" }}
-              >
-                SECURITY
-              </div>
-              <div
-                style={{
-                  fontWeight: 600,
-                  fontSize: "0.95rem",
-                  color: "#FFFFFF",
-                  marginBottom: "6px",
-                }}
-              >
-                Hybrid Cryptography
-              </div>
-              <div
-                style={{
-                  fontSize: "0.82rem",
-                  color: "var(--text-secondary)",
-                  lineHeight: 1.5,
-                }}
-              >
-                AES-256 payload encryption with RSA asymmetric handshake & JWT
-                protection.
-              </div>
-            </div>
-
-            {/* Focus 4 */}
-            <div
-              className="cyber-panel cyber-panel-glow"
-              style={{
-                padding: "20px",
-                background: "rgba(19, 24, 35, 0.7)",
-              }}
-            >
-              <div
-                style={{
-                  width: 34,
-                  height: 34,
-                  borderRadius: "8px",
-                  background: "rgba(16, 185, 129, 0.12)",
-                  border: "1px solid rgba(16, 185, 129, 0.25)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "var(--accent-emerald)",
-                  marginBottom: "12px",
-                }}
-              >
-                <GraduationCapIcon size={17} />
-              </div>
-              <div
-                className="font-mono text-xs uppercase"
-                style={{ color: "var(--accent-emerald)", marginBottom: "4px" }}
-              >
-                EDUCATION
-              </div>
-              <div
-                style={{
-                  fontWeight: 600,
-                  fontSize: "0.95rem",
-                  color: "#FFFFFF",
-                  marginBottom: "6px",
-                }}
-              >
-                USyd Master's
-              </div>
-              <div
-                style={{
-                  fontSize: "0.82rem",
-                  color: "var(--text-secondary)",
-                  lineHeight: 1.5,
-                }}
-              >
-                Master of Computer Science (Advanced Entry) at The University of
-                Sydney.
-              </div>
+            {/* 3D Distributed Cloud Topology Lattice */}
+            <div style={{ marginTop: "24px" }}>
+              <Interactive3DTopology className="crosshair-box" />
             </div>
           </div>
         </div>
 
-        {/* Real Production Metrics Row */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "18px",
-          }}
-          className="about-stats-grid"
-        >
-          {STATS.map((stat, idx) => (
-            <div
-              key={idx}
-              className="cyber-panel"
-              style={{
-                padding: "22px 20px",
-                background: "rgba(14, 18, 26, 0.8)",
-                border: "1px solid var(--border-subtle)",
-                borderRadius: "12px",
-              }}
-            >
+        {/* Editorial Benchmarks Row */}
+        <div>
+          <div
+            className="font-mono text-xs uppercase"
+            style={{
+              color: "var(--ink-tertiary)",
+              letterSpacing: "0.1em",
+              marginBottom: "16px",
+            }}
+          >
+            // VERIFIED PRODUCTION METRICS
+          </div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(4, 1fr)",
+              borderTop: "1px solid var(--rule-hairline)",
+              borderBottom: "1px solid var(--rule-hairline)",
+            }}
+            className="about-metrics-grid"
+          >
+            {STATS.map((s, idx) => (
               <div
+                key={idx}
                 style={{
-                  fontSize: "clamp(2rem, 3.2vw, 2.5rem)",
-                  color: ["#00E5FF", "#A855F7", "#38BDF8", "#10B981"][idx % 4],
-                  lineHeight: 1,
-                  marginBottom: "8px",
+                  padding: "24px 20px",
+                  borderRight:
+                    idx === STATS.length - 1
+                      ? "none"
+                      : "1px solid var(--rule-hairline)",
                 }}
+                className="metric-cell"
               >
-                <MetricCounter value={stat.value} suffix={stat.suffix} />
+                <KineticMetric
+                  value={s.value}
+                  suffix={s.suffix}
+                  label={s.label}
+                  description={s.description}
+                />
               </div>
-              <div
-                style={{
-                  fontSize: "0.9rem",
-                  fontWeight: 600,
-                  color: "#FFFFFF",
-                  marginBottom: "4px",
-                }}
-              >
-                {stat.label}
-              </div>
-              <div
-                style={{
-                  fontSize: "0.78rem",
-                  color: "var(--text-tertiary)",
-                  lineHeight: 1.45,
-                }}
-              >
-                {stat.description}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
       <style>{`
-        @media (max-width: 960px) {
-          .about-split-layout { grid-template-columns: 1fr !important; }
-          .about-stats-grid { grid-template-columns: 1fr 1fr !important; }
+        @media (max-width: 900px) {
+          .about-editorial-layout { grid-template-columns: 1fr !important; gap: 36px !important; }
+          .about-metrics-grid { grid-template-columns: 1fr 1fr !important; }
+          .metric-cell:nth-child(2) { border-right: none !important; }
+          .metric-cell:nth-child(1), .metric-cell:nth-child(2) { border-bottom: 1px solid var(--rule-hairline) !important; }
         }
-        @media (max-width: 580px) {
-          .about-bento-grid { grid-template-columns: 1fr !important; }
-          .about-stats-grid { grid-template-columns: 1fr !important; }
+        @media (max-width: 540px) {
+          .about-metrics-grid { grid-template-columns: 1fr !important; }
+          .metric-cell { border-right: none !important; border-bottom: 1px solid var(--rule-hairline) !important; }
+          .metric-cell:last-child { border-bottom: none !important; }
         }
       `}</style>
     </section>
