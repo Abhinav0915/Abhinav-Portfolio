@@ -1,7 +1,6 @@
 import React from "react";
 import { STATS } from "../../data/portfolioData";
 import { EditorialSectionHeading } from "../common/EditorialSectionHeading";
-import { Interactive3DTopology } from "../common/Interactive3DTopology";
 import { KineticMetric } from "./KineticMetric";
 
 export const About: React.FC = () => {
@@ -34,7 +33,7 @@ export const About: React.FC = () => {
           className="about-editorial-layout"
         >
           {/* Main Narrative Column */}
-          <div>
+          <div className="scroll-reveal delay-1">
             <div
               className="font-display"
               style={{
@@ -112,6 +111,7 @@ export const About: React.FC = () => {
               padding: "28px",
               backgroundColor: "var(--bg-secondary)",
             }}
+            className="scroll-reveal-scale delay-2"
           >
             <div
               className="font-mono text-xs uppercase"
@@ -236,16 +236,11 @@ export const About: React.FC = () => {
                 </div>
               </div>
             </div>
-
-            {/* 3D Distributed Cloud Topology Lattice */}
-            <div style={{ marginTop: "24px" }}>
-              <Interactive3DTopology className="crosshair-box" />
-            </div>
           </div>
         </div>
 
         {/* Editorial Benchmarks Row */}
-        <div>
+        <div className="scroll-reveal delay-2">
           <div
             className="font-mono text-xs uppercase"
             style={{

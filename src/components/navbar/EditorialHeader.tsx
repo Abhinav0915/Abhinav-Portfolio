@@ -46,6 +46,26 @@ export const EditorialHeader: React.FC<EditorialHeaderProps> = ({
     return () => clearInterval(interval);
   }, []);
 
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      if (totalHeight > 0) {
+        const progress = Math.min(
+          Math.max((window.scrollY / totalHeight) * 100, 0),
+          100,
+        );
+        setScrollProgress(progress);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const handleNavClick = (id: string) => {
     onNavigate(id);
     setMenuOpen(false);
@@ -62,6 +82,19 @@ export const EditorialHeader: React.FC<EditorialHeaderProps> = ({
         transition: "background-color 0.2s ease, border-color 0.2s ease",
       }}
     >
+      {/* Scroll Reading Progress Bar */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          height: "2px",
+          width: `${scrollProgress}%`,
+          backgroundColor: "var(--accent-vermilion)",
+          transition: "width 0.08s ease-out",
+          zIndex: 101,
+        }}
+      />
       <div className="editorial-container">
         <div
           style={{
@@ -130,19 +163,27 @@ export const EditorialHeader: React.FC<EditorialHeaderProps> = ({
                     fontSize: "0.78rem",
                     letterSpacing: "0.04em",
                     textTransform: "uppercase",
-                    color: isActive ? "var(--accent-vermilion)" : "var(--ink-secondary)",
+                    color: isActive
+                      ? "var(--accent-vermilion)"
+                      : "var(--ink-secondary)",
                     fontWeight: isActive ? 600 : 500,
-                    borderBottom: isActive ? "2px solid var(--accent-vermilion)" : "2px solid transparent",
+                    borderBottom: isActive
+                      ? "2px solid var(--accent-vermilion)"
+                      : "2px solid transparent",
                     transition: "all 0.15s ease",
                   }}
                   onMouseEnter={(e) => {
-                    if (!isActive) e.currentTarget.style.color = "var(--ink-primary)";
+                    if (!isActive)
+                      e.currentTarget.style.color = "var(--ink-primary)";
                   }}
                   onMouseLeave={(e) => {
-                    if (!isActive) e.currentTarget.style.color = "var(--ink-secondary)";
+                    if (!isActive)
+                      e.currentTarget.style.color = "var(--ink-secondary)";
                   }}
                 >
-                  <span style={{ color: "var(--ink-muted)", marginRight: "4px" }}>
+                  <span
+                    style={{ color: "var(--ink-muted)", marginRight: "4px" }}
+                  >
                     {sec.num}
                   </span>
                   <span>{sec.label}</span>
@@ -166,8 +207,12 @@ export const EditorialHeader: React.FC<EditorialHeaderProps> = ({
                 alignItems: "center",
                 gap: "3px",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent-vermilion)")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--ink-primary)")}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.color = "var(--accent-vermilion)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.color = "var(--ink-primary)")
+              }
             >
               <span>CV / RESUME</span>
               <span>↗</span>
@@ -246,10 +291,18 @@ export const EditorialHeader: React.FC<EditorialHeaderProps> = ({
                     cursor: "pointer",
                     fontFamily: "var(--font-mono)",
                     fontSize: "0.82rem",
-                    color: activeSection === sec.id ? "var(--accent-vermilion)" : "var(--ink-primary)",
+                    color:
+                      activeSection === sec.id
+                        ? "var(--accent-vermilion)"
+                        : "var(--ink-primary)",
                   }}
                 >
-                  <span style={{ color: "var(--accent-vermilion)", marginRight: "6px" }}>
+                  <span
+                    style={{
+                      color: "var(--accent-vermilion)",
+                      marginRight: "6px",
+                    }}
+                  >
                     [{sec.num}]
                   </span>
                   <span>{sec.label}</span>
@@ -258,7 +311,10 @@ export const EditorialHeader: React.FC<EditorialHeaderProps> = ({
             </div>
 
             <div style={{ marginTop: "16px", paddingTop: "12px" }}>
-              <span className="font-mono text-xs" style={{ color: "var(--ink-tertiary)" }}>
+              <span
+                className="font-mono text-xs"
+                style={{ color: "var(--ink-tertiary)" }}
+              >
                 LOCATION: SYDNEY, AUSTRALIA • 2026
               </span>
             </div>

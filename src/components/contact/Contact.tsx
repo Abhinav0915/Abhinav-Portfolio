@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { CONTACT } from "../../data/portfolioData";
 import { EditorialButton } from "../common/EditorialButton";
-import { Interactive3DBeacon } from "../common/Interactive3DBeacon";
 
 export const Contact: React.FC = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -75,7 +74,7 @@ export const Contact: React.FC = () => {
     >
       <div className="editorial-container">
         {/* Editorial Closing Header */}
-        <div style={{ marginBottom: "56px" }}>
+        <div style={{ marginBottom: "56px" }} className="scroll-reveal">
           <div
             className="font-mono text-xs uppercase"
             style={{
@@ -129,7 +128,7 @@ export const Contact: React.FC = () => {
           className="contact-editorial-layout"
         >
           {/* Left Column: Direct Inquiries */}
-          <div>
+          <div className="scroll-reveal delay-1">
             <p
               style={{
                 fontSize: "1.05rem",
@@ -287,9 +286,115 @@ export const Contact: React.FC = () => {
               </div>
             </div>
 
-            {/* 3D Quantum Transmission Beacon */}
-            <div style={{ marginTop: "28px" }}>
-              <Interactive3DBeacon className="crosshair-box" />
+            {/* Live Transmission Telemetry Module */}
+            <div
+              className="crosshair-box"
+              style={{
+                marginTop: "28px",
+                padding: "20px",
+                backgroundColor: "var(--bg-secondary)",
+                border: "1px solid var(--rule-hairline)",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginBottom: "14px",
+                  paddingBottom: "10px",
+                  borderBottom: "1px solid var(--rule-hairline)",
+                }}
+              >
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "8px" }}
+                >
+                  <div
+                    style={{
+                      position: "relative",
+                      width: "10px",
+                      height: "10px",
+                    }}
+                  >
+                    <div className="radar-ping" />
+                    <div
+                      style={{
+                        position: "absolute",
+                        inset: "2px",
+                        borderRadius: "50%",
+                        backgroundColor: "var(--accent-vermilion)",
+                      }}
+                    />
+                  </div>
+                  <span
+                    className="font-mono text-xs uppercase"
+                    style={{
+                      color: "var(--accent-vermilion)",
+                      fontWeight: 700,
+                    }}
+                  >
+                    TRANSMISSION NODE ONLINE
+                  </span>
+                </div>
+                <span
+                  className="font-mono text-xs"
+                  style={{ color: "var(--ink-tertiary)" }}
+                >
+                  RTT ~14ms
+                </span>
+              </div>
+
+              <div
+                className="font-mono text-xs"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "7px",
+                  color: "var(--ink-secondary)",
+                }}
+              >
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <span style={{ color: "var(--ink-muted)" }}>
+                    NODE_ROUTING:
+                  </span>
+                  <span style={{ color: "var(--ink-primary)" }}>
+                    SYD_AP_SOUTHEAST_2
+                  </span>
+                </div>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <span style={{ color: "var(--ink-muted)" }}>ENCRYPTION:</span>
+                  <span style={{ color: "var(--ink-primary)" }}>
+                    AES-256-GCM / SHA-256
+                  </span>
+                </div>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <span style={{ color: "var(--ink-muted)" }}>PROTOCOL:</span>
+                  <span style={{ color: "var(--ink-primary)" }}>
+                    HTTPS / TLSv1.3 PERSISTENT
+                  </span>
+                </div>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <span style={{ color: "var(--ink-muted)" }}>
+                    RESPONSE_SLA:
+                  </span>
+                  <span
+                    style={{
+                      color: "var(--accent-vermilion)",
+                      fontWeight: 600,
+                    }}
+                  >
+                    &lt; 24 HOURS
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -300,7 +405,7 @@ export const Contact: React.FC = () => {
               border: "1px solid var(--rule-hairline)",
               padding: "36px",
             }}
-            className="contact-form-box"
+            className="contact-form-box scroll-reveal-scale delay-2"
           >
             <div
               className="font-mono text-xs uppercase"
@@ -441,6 +546,7 @@ export const Contact: React.FC = () => {
                 variant="vermilion"
                 size="md"
                 arrow="right"
+                type="submit"
                 style={{ width: "100%" }}
               >
                 {isSubmitting ? "DISPATCHING PACKET..." : "TRANSMIT MESSAGE"}

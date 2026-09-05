@@ -49,6 +49,7 @@ export const Projects: React.FC = () => {
             marginBottom: "64px",
             borderBottom: "1px solid var(--rule-hairline)",
           }}
+          className="scroll-reveal delay-1"
         >
           {/* Header Row: Giant Number + Title */}
           <div
@@ -303,6 +304,7 @@ export const Projects: React.FC = () => {
             marginBottom: "64px",
             borderBottom: "1px solid var(--rule-hairline)",
           }}
+          className="scroll-reveal delay-1"
         >
           <div
             style={{
@@ -650,6 +652,7 @@ export const Projects: React.FC = () => {
             marginBottom: "64px",
             borderBottom: "1px solid var(--rule-hairline)",
           }}
+          className="scroll-reveal delay-1"
         >
           <div
             style={{
@@ -853,6 +856,7 @@ export const Projects: React.FC = () => {
                       : "transparent",
                     transition: "background-color 0.15s ease",
                   }}
+                  className={`scroll-reveal delay-${(idx % 3) + 1}`}
                 >
                   {/* Table Row Header */}
                   <div

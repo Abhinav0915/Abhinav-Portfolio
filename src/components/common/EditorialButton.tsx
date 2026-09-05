@@ -13,6 +13,7 @@ type EditorialButtonProps = {
   className?: string;
   arrow?: "right" | "up-right" | "none";
   style?: React.CSSProperties;
+  type?: "button" | "submit" | "reset";
 };
 
 export const EditorialButton: React.FC<EditorialButtonProps> = ({
@@ -28,6 +29,7 @@ export const EditorialButton: React.FC<EditorialButtonProps> = ({
   className = "",
   arrow = "none",
   style,
+  type = "button",
 }) => {
   const [isHovered, setIsHovered] = React.useState(false);
 
@@ -126,7 +128,7 @@ export const EditorialButton: React.FC<EditorialButtonProps> = ({
 
   return (
     <button
-      type="button"
+      type={type}
       onClick={onClick}
       style={combinedStyle}
       className={className}

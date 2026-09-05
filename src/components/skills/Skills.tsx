@@ -37,10 +37,12 @@ export const Skills: React.FC = () => {
                 borderBottom: "1px solid var(--rule-hairline)",
                 alignItems: "start",
               }}
-              className="skill-index-row"
+              className={`skill-index-row scroll-reveal delay-${(idx % 3) + 1}`}
             >
               {/* Column 1: Index Number & Domain */}
-              <div style={{ display: "flex", alignItems: "baseline", gap: "10px" }}>
+              <div
+                style={{ display: "flex", alignItems: "baseline", gap: "10px" }}
+              >
                 <span
                   className="font-mono text-sm"
                   style={{ color: "var(--accent-vermilion)", fontWeight: 700 }}
@@ -89,7 +91,14 @@ export const Skills: React.FC = () => {
                   >
                     <span>{item}</span>
                     {itemIdx < cat.items.length - 1 && (
-                      <span style={{ color: "var(--ink-muted)", userSelect: "none" }}>/</span>
+                      <span
+                        style={{
+                          color: "var(--ink-muted)",
+                          userSelect: "none",
+                        }}
+                      >
+                        /
+                      </span>
                     )}
                   </span>
                 ))}

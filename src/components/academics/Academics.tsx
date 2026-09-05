@@ -50,7 +50,7 @@ export const Academics: React.FC = () => {
               borderTop: "1px solid var(--rule-hairline)",
               borderBottom: "1px solid var(--rule-hairline)",
             }}
-            className="academics-degrees-grid"
+            className="academics-degrees-grid scroll-reveal delay-1"
           >
             {EDUCATION.slice(0, 2).map((edu, idx) => (
               <div
@@ -125,7 +125,7 @@ export const Academics: React.FC = () => {
               gridTemplateColumns: "repeat(3, 1fr)",
               gap: "24px",
             }}
-            className="achievements-editorial-grid"
+            className="achievements-editorial-grid scroll-reveal delay-2"
           >
             {ACHIEVEMENTS.map((ach) => (
               <div
@@ -236,7 +236,7 @@ export const Academics: React.FC = () => {
                   alignItems: "center",
                   fontSize: "0.88rem",
                 }}
-                className="cert-row"
+                className={`cert-row scroll-reveal delay-${(idx % 3) + 1}`}
               >
                 <span
                   className="font-mono text-xs"

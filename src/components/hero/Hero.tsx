@@ -2,7 +2,7 @@ import React from "react";
 import { CONTACT } from "../../data/portfolioData";
 import { EditorialButton } from "../common/EditorialButton";
 import { Interactive3DObject } from "../common/Interactive3DObject";
-import { Interactive3DWave } from "../common/Interactive3DWave";
+import { TypewriterRole } from "./TypewriterRole";
 
 type HeroProps = {
   onNavigate: (sectionId: string) => void;
@@ -31,6 +31,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
             marginBottom: "36px",
             borderBottom: "1px solid var(--rule-hairline)",
           }}
+          className="scroll-reveal"
         >
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <div
@@ -66,7 +67,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
         </div>
 
         {/* Oversized Publication Title */}
-        <div style={{ marginBottom: "44px" }}>
+        <div style={{ marginBottom: "44px" }} className="scroll-reveal delay-1">
           <h1
             className="font-display font-bold uppercase"
             style={{
@@ -80,18 +81,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
           >
             Abhinav Saxena
           </h1>
-          <div
-            className="font-display font-bold uppercase"
-            style={{
-              fontSize: "clamp(1.6rem, 4.4vw, 3.8rem)",
-              lineHeight: 1.02,
-              letterSpacing: "-0.03em",
-              color: "var(--ink-secondary)",
-              margin: 0,
-            }}
-          >
-            Software Systems &amp; Applied AI.
-          </div>
+          <TypewriterRole />
         </div>
 
         {/* Asymmetrical Editorial Grid */}
@@ -105,7 +95,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
           className="hero-editorial-layout"
         >
           {/* Left Column: Thesis Statement & Action Triggers */}
-          <div>
+          <div className="scroll-reveal delay-2">
             <p
               style={{
                 fontSize: "clamp(1.1rem, 2vw, 1.4rem)",
@@ -174,9 +164,6 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                 CV / Resume
               </EditorialButton>
             </div>
-
-            {/* 3D Vector Surface Elevation Wave */}
-            <Interactive3DWave />
           </div>
 
           {/* Right Column: Specification & Benchmark Table */}
@@ -185,7 +172,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               borderLeft: "1px solid var(--rule-hairline)",
               paddingLeft: "36px",
             }}
-            className="hero-spec-col"
+            className="hero-spec-col scroll-reveal-scale delay-3"
           >
             {/* Interactive 3D Geometry */}
             <div className="crosshair-box" style={{ marginBottom: "24px" }}>

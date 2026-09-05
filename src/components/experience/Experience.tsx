@@ -22,7 +22,7 @@ export const Experience: React.FC = () => {
 
         {/* Chronological Newspaper List */}
         <div style={{ borderTop: "1px solid var(--rule-hairline)" }}>
-          {EXPERIENCE.map((item) => (
+          {EXPERIENCE.map((item, idx) => (
             <div
               key={item.company}
               style={{
@@ -33,7 +33,7 @@ export const Experience: React.FC = () => {
                 borderBottom: "1px solid var(--rule-hairline)",
                 alignItems: "start",
               }}
-              className="chronology-row"
+              className={`chronology-row scroll-reveal delay-${(idx % 3) + 1}`}
             >
               {/* Left Column: Huge Year & Location */}
               <div>
@@ -51,7 +51,11 @@ export const Experience: React.FC = () => {
                 </div>
                 <div
                   className="font-mono text-xs uppercase"
-                  style={{ color: "var(--accent-vermilion)", fontWeight: 600, marginBottom: "4px" }}
+                  style={{
+                    color: "var(--accent-vermilion)",
+                    fontWeight: 600,
+                    marginBottom: "4px",
+                  }}
                 >
                   {item.period}
                 </div>
@@ -88,17 +92,42 @@ export const Experience: React.FC = () => {
                   {item.company}
                 </div>
 
-                <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "24px" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "10px",
+                    marginBottom: "24px",
+                  }}
+                >
                   {item.description.map((point, pIdx) => (
-                    <div key={pIdx} style={{ display: "flex", gap: "10px", fontSize: "0.95rem", lineHeight: 1.65, color: "var(--ink-secondary)" }}>
-                      <span style={{ color: "var(--accent-vermilion)", flexShrink: 0 }}>—</span>
+                    <div
+                      key={pIdx}
+                      style={{
+                        display: "flex",
+                        gap: "10px",
+                        fontSize: "0.95rem",
+                        lineHeight: 1.65,
+                        color: "var(--ink-secondary)",
+                      }}
+                    >
+                      <span
+                        style={{
+                          color: "var(--accent-vermilion)",
+                          flexShrink: 0,
+                        }}
+                      >
+                        —
+                      </span>
                       <span>{point}</span>
                     </div>
                   ))}
                 </div>
 
                 {/* Tech metadata */}
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 12px" }}>
+                <div
+                  style={{ display: "flex", flexWrap: "wrap", gap: "6px 12px" }}
+                >
                   {item.technologies.map((t, tIdx) => (
                     <span
                       key={t}
@@ -129,7 +158,7 @@ export const Experience: React.FC = () => {
               borderBottom: "1px solid var(--rule-hairline)",
               alignItems: "start",
             }}
-            className="chronology-row"
+            className="chronology-row scroll-reveal delay-3"
           >
             <div>
               <div
@@ -165,16 +194,49 @@ export const Experience: React.FC = () => {
                 Technical Leadership &amp; Community
               </h3>
 
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "28px" }} className="leadership-subgrid">
-                {LEADERSHIP.map((lead) => (
-                  <div key={lead.organization} style={{ border: "1px solid var(--rule-hairline)", padding: "20px" }}>
-                    <div style={{ fontWeight: 700, fontSize: "1rem", color: "var(--ink-primary)", marginBottom: "4px" }}>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: "28px",
+                }}
+                className="leadership-subgrid"
+              >
+                {LEADERSHIP.map((lead, lIdx) => (
+                  <div
+                    key={lead.organization}
+                    style={{
+                      border: "1px solid var(--rule-hairline)",
+                      padding: "20px",
+                    }}
+                    className={`scroll-reveal-scale delay-${lIdx + 1}`}
+                  >
+                    <div
+                      style={{
+                        fontWeight: 700,
+                        fontSize: "1rem",
+                        color: "var(--ink-primary)",
+                        marginBottom: "4px",
+                      }}
+                    >
                       {lead.role}
                     </div>
-                    <div className="font-mono text-xs" style={{ color: "var(--accent-vermilion)", marginBottom: "10px" }}>
+                    <div
+                      className="font-mono text-xs"
+                      style={{
+                        color: "var(--accent-vermilion)",
+                        marginBottom: "10px",
+                      }}
+                    >
                       {lead.organization} • {lead.period}
                     </div>
-                    <div style={{ fontSize: "0.88rem", lineHeight: 1.6, color: "var(--ink-secondary)" }}>
+                    <div
+                      style={{
+                        fontSize: "0.88rem",
+                        lineHeight: 1.6,
+                        color: "var(--ink-secondary)",
+                      }}
+                    >
                       {lead.description}
                     </div>
                   </div>

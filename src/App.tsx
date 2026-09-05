@@ -84,6 +84,43 @@ export default function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Global IntersectionObserver for scroll-reveal animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.08,
+        rootMargin: "0px 0px -40px 0px",
+      },
+    );
+
+    const observeElements = () => {
+      const elements = document.querySelectorAll(
+        ".scroll-reveal, .scroll-reveal-left, .scroll-reveal-scale",
+      );
+      elements.forEach((el) => {
+        if (!el.classList.contains("revealed")) {
+          observer.observe(el);
+        }
+      });
+    };
+
+    observeElements();
+    const timeout = setTimeout(observeElements, 400);
+
+    return () => {
+      clearTimeout(timeout);
+      observer.disconnect();
+    };
+  }, []);
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
