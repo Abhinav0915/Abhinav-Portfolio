@@ -1,194 +1,51 @@
-import { useState, useEffect } from "react";
-import { EditorialHeader } from "./components/navbar/EditorialHeader";
+import { useEffect, useRef, useState } from "react";
+import { Header } from "./components/layout/Header";
 import { Hero } from "./components/hero/Hero";
+import { Work } from "./components/work/Work";
 import { About } from "./components/about/About";
-import { Projects } from "./components/projects/Projects";
-import { Skills } from "./components/skills/Skills";
 import { Experience } from "./components/experience/Experience";
-import { Academics } from "./components/academics/Academics";
+import { Toolbox } from "./components/toolbox/Toolbox";
 import { Contact } from "./components/contact/Contact";
-import { Footer } from "./components/footer/Footer";
-import { KineticMarquee } from "./components/common/KineticMarquee";
-import { CommandPalette } from "./components/common/CommandPalette";
-import { EngineeringHUD } from "./components/common/EngineeringHUD";
+import { useActiveSection, useScrollEffects } from "./hooks/useScrollEffects";
+import { usePointerEffects } from "./hooks/usePointerEffects";
+import { startSmoothScroll, stopSmoothScroll } from "./lib/smoothScroll";
+import { CONTACT, NAV } from "./data/portfolioData";
 
-const SECTIONS = [
-  "hero",
-  "about",
-  "projects",
-  "skills",
-  "experience",
-  "academics",
-  "contact",
-];
+const SECTION_IDS = NAV.map((n) => n.id);
 
 export default function App() {
-  const [activeSection, setActiveSection] = useState<string>("hero");
-  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
-  const [isDark, setIsDark] = useState<boolean>(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("theme");
-      if (saved === "light") return false;
-      return true; // default dark mode
-    }
-    return true;
-  });
+  const [active, setActive] = useState("");
+  const cursorRef = useRef<HTMLDivElement>(null);
 
-  // Sync theme attribute with html element and localStorage
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.setAttribute("data-theme", "dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.removeAttribute("data-theme");
-      localStorage.setItem("theme", "light");
-    }
-  }, [isDark]);
-
-  // Global hotkeys for command palette (Cmd+K, Ctrl+K, or /)
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-        e.preventDefault();
-        setIsCommandPaletteOpen((prev) => !prev);
-      } else if (
-        e.key === "/" &&
-        !["INPUT", "TEXTAREA"].includes((e.target as HTMLElement).tagName)
-      ) {
-        e.preventDefault();
-        setIsCommandPaletteOpen(true);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  useScrollEffects();
+  useActiveSection(SECTION_IDS, setActive);
+  usePointerEffects(cursorRef);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 180;
-      for (const sectionId of SECTIONS) {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          const top = element.offsetTop;
-          const height = element.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(sectionId);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Global IntersectionObserver for scroll-reveal animations
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("revealed");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.08,
-        rootMargin: "0px 0px -40px 0px",
-      },
+    startSmoothScroll();
+    console.info(
+      `%cReading the source?%c\nThis site is React + Vite with no UI framework. Say hi: ${CONTACT.email}`,
+      "font: 600 13px Georgia, serif",
+      "font: 12px ui-monospace, monospace",
     );
-
-    const observeElements = () => {
-      const elements = document.querySelectorAll(
-        ".scroll-reveal, .scroll-reveal-left, .scroll-reveal-scale",
-      );
-      elements.forEach((el) => {
-        if (!el.classList.contains("revealed")) {
-          observer.observe(el);
-        }
-      });
-    };
-
-    observeElements();
-    const timeout = setTimeout(observeElements, 400);
-
-    return () => {
-      clearTimeout(timeout);
-      observer.disconnect();
-    };
+    return stopSmoothScroll;
   }, []);
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const topOffset = 65; // height of sticky editorial header
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - topOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-    }
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
 
   return (
-    <div
-      className="tech-blueprint-grid"
-      style={{
-        position: "relative",
-        minHeight: "100vh",
-        backgroundColor: "var(--bg-primary)",
-        color: "var(--ink-primary)",
-        paddingBottom: "36px",
-      }}
-    >
-      {/* Editorial Grid Navigation */}
-      <EditorialHeader
-        activeSection={activeSection}
-        onNavigate={scrollToSection}
-        isDark={isDark}
-        onToggleTheme={() => setIsDark(!isDark)}
-      />
-
-      {/* Main Publication Sections */}
+    <>
+      <a className="skip-link" href="#work">
+        Skip to work
+      </a>
+      <Header active={active} />
       <main>
-        <Hero onNavigate={scrollToSection} />
-        <KineticMarquee />
+        <Hero />
+        <Work />
         <About />
-        <Projects />
-        <Skills />
         <Experience />
-        <Academics />
+        <Toolbox />
         <Contact />
       </main>
-
-      {/* Typographic Colophon Footer */}
-      <Footer onScrollToTop={scrollToTop} />
-
-      {/* Real-time Engineering Telemetry HUD Bar */}
-      <EngineeringHUD
-        onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
-      />
-
-      {/* Interactive Command Palette (Cmd+K) */}
-      <CommandPalette
-        isOpen={isCommandPaletteOpen}
-        onClose={() => setIsCommandPaletteOpen(false)}
-        onNavigate={scrollToSection}
-        isDark={isDark}
-        onToggleTheme={() => setIsDark(!isDark)}
-      />
-    </div>
+      <div ref={cursorRef} className="cursor" aria-hidden />
+    </>
   );
 }

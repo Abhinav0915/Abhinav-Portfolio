@@ -1,258 +1,125 @@
-import React from "react";
-import { EXPERIENCE, LEADERSHIP } from "../../data/portfolioData";
-import { EditorialSectionHeading } from "../common/EditorialSectionHeading";
+import { useState } from "react";
+import { ACHIEVEMENTS, CERTIFICATIONS, EDUCATION, EXPERIENCE, LEADERSHIP } from "../../data/portfolioData";
+import { SectionHead } from "../common/SectionHead";
+import { ArrowUpRight } from "../common/Icons";
+import { stagger } from "../../utils/style";
 
-export const Experience: React.FC = () => {
+const CERTS_SHOWN = 4;
+
+export function Experience() {
+  const [allCerts, setAllCerts] = useState(false);
+  const certs = allCerts ? CERTIFICATIONS : CERTIFICATIONS.slice(0, CERTS_SHOWN);
+
   return (
-    <section
-      id="experience"
-      style={{
-        paddingTop: "90px",
-        paddingBottom: "90px",
-        borderBottom: "1px solid var(--rule-hairline)",
-      }}
-    >
-      <div className="editorial-container">
-        <EditorialSectionHeading
-          number="04"
-          category="CHRONOLOGY &amp; TENURE"
-          title="Newspaper chronology &amp; production history."
-          meta="HISTORY // 2021 — 2026"
-        />
+    <section id="experience" className="experience" data-tone="light">
+      <div className="wrap">
+        <SectionHead index="03" label="Experience" title="Where I've worked" italic={["worked"]} />
 
-        {/* Chronological Newspaper List */}
-        <div style={{ borderTop: "1px solid var(--rule-hairline)" }}>
-          {EXPERIENCE.map((item, idx) => (
-            <div
-              key={item.company}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "240px 1fr",
-                gap: "48px",
-                padding: "44px 0",
-                borderBottom: "1px solid var(--rule-hairline)",
-                alignItems: "start",
-              }}
-              className={`chronology-row scroll-reveal delay-${(idx % 3) + 1}`}
-            >
-              {/* Left Column: Huge Year & Location */}
-              <div>
-                <div
-                  className="font-display font-bold"
-                  style={{
-                    fontSize: "clamp(1.8rem, 3.2vw, 2.6rem)",
-                    lineHeight: 1.05,
-                    color: "var(--ink-primary)",
-                    letterSpacing: "-0.03em",
-                    marginBottom: "6px",
-                  }}
-                >
-                  {item.period.split("–")[0].trim()}
-                </div>
-                <div
-                  className="font-mono text-xs uppercase"
-                  style={{
-                    color: "var(--accent-vermilion)",
-                    fontWeight: 600,
-                    marginBottom: "4px",
-                  }}
-                >
-                  {item.period}
-                </div>
-                <div
-                  className="font-mono text-xs uppercase"
-                  style={{ color: "var(--ink-tertiary)" }}
-                >
-                  {item.location} • {item.badge || "ENGINEERING"}
-                </div>
+        <ol className="roles">
+          {EXPERIENCE.map((job) => (
+            <li key={job.company} className="role" data-scroll>
+              <p className="role__years" aria-hidden data-reveal>
+                {job.years}
+              </p>
+              <div className="role__head" data-reveal>
+                <h3>{job.role}</h3>
+                <p className="role__org">{job.company}</p>
+                <p className="meta role__when">
+                  {job.period} <span>/</span> {job.location}
+                </p>
               </div>
-
-              {/* Right Column: Role, Company & Bulleted Narrative */}
-              <div>
-                <h3
-                  className="font-display font-bold uppercase"
-                  style={{
-                    fontSize: "clamp(1.4rem, 2.6vw, 2rem)",
-                    color: "var(--ink-primary)",
-                    margin: "0 0 4px 0",
-                    letterSpacing: "-0.02em",
-                  }}
-                >
-                  {item.role}
-                </h3>
-
-                <div
-                  className="font-mono text-sm uppercase"
-                  style={{
-                    color: "var(--ink-secondary)",
-                    fontWeight: 600,
-                    marginBottom: "20px",
-                  }}
-                >
-                  {item.company}
-                </div>
-
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "10px",
-                    marginBottom: "24px",
-                  }}
-                >
-                  {item.description.map((point, pIdx) => (
-                    <div
-                      key={pIdx}
-                      style={{
-                        display: "flex",
-                        gap: "10px",
-                        fontSize: "0.95rem",
-                        lineHeight: 1.65,
-                        color: "var(--ink-secondary)",
-                      }}
-                    >
-                      <span
-                        style={{
-                          color: "var(--accent-vermilion)",
-                          flexShrink: 0,
-                        }}
-                      >
-                        —
-                      </span>
-                      <span>{point}</span>
-                    </div>
+              <div className="role__body">
+                <ul>
+                  {job.description.map((d, i) => (
+                    <li key={i} data-reveal style={stagger(i, 50)}>
+                      {d}
+                    </li>
                   ))}
-                </div>
-
-                {/* Tech metadata */}
-                <div
-                  style={{ display: "flex", flexWrap: "wrap", gap: "6px 12px" }}
-                >
-                  {item.technologies.map((t, tIdx) => (
-                    <span
-                      key={t}
-                      className="font-mono text-xs"
-                      style={{
-                        color: "var(--ink-tertiary)",
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "12px",
-                      }}
-                    >
-                      <span>{t}</span>
-                      {tIdx < item.technologies.length - 1 && <span>/</span>}
-                    </span>
-                  ))}
-                </div>
+                </ul>
+                <p className="meta role__tech" data-reveal>
+                  {job.technologies.join(" / ")}
+                </p>
               </div>
-            </div>
+            </li>
           ))}
+        </ol>
 
-          {/* Leadership & Engineering Culture Row */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "240px 1fr",
-              gap: "48px",
-              padding: "44px 0",
-              borderBottom: "1px solid var(--rule-hairline)",
-              alignItems: "start",
-            }}
-            className="chronology-row scroll-reveal delay-3"
-          >
-            <div>
-              <div
-                className="font-display font-bold"
-                style={{
-                  fontSize: "clamp(1.8rem, 3.2vw, 2.6rem)",
-                  lineHeight: 1.05,
-                  color: "var(--ink-primary)",
-                  letterSpacing: "-0.03em",
-                  marginBottom: "6px",
-                }}
-              >
-                2021 — 2025
-              </div>
-              <div
-                className="font-mono text-xs uppercase"
-                style={{ color: "var(--accent-vermilion)", fontWeight: 600 }}
-              >
-                LEADERSHIP &amp; CULTURE
-              </div>
-            </div>
-
-            <div>
-              <h3
-                className="font-display font-bold uppercase"
-                style={{
-                  fontSize: "clamp(1.4rem, 2.6vw, 2rem)",
-                  color: "var(--ink-primary)",
-                  margin: "0 0 16px 0",
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                Technical Leadership &amp; Community
-              </h3>
-
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  gap: "28px",
-                }}
-                className="leadership-subgrid"
-              >
-                {LEADERSHIP.map((lead, lIdx) => (
-                  <div
-                    key={lead.organization}
-                    style={{
-                      border: "1px solid var(--rule-hairline)",
-                      padding: "20px",
-                    }}
-                    className={`scroll-reveal-scale delay-${lIdx + 1}`}
-                  >
-                    <div
-                      style={{
-                        fontWeight: 700,
-                        fontSize: "1rem",
-                        color: "var(--ink-primary)",
-                        marginBottom: "4px",
-                      }}
-                    >
-                      {lead.role}
-                    </div>
-                    <div
-                      className="font-mono text-xs"
-                      style={{
-                        color: "var(--accent-vermilion)",
-                        marginBottom: "10px",
-                      }}
-                    >
-                      {lead.organization} • {lead.period}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "0.88rem",
-                        lineHeight: 1.6,
-                        color: "var(--ink-secondary)",
-                      }}
-                    >
-                      {lead.description}
-                    </div>
+        <div className="record">
+          <div className="record__col">
+            <h3 className="meta record__title" data-reveal>
+              Education
+            </h3>
+            <ul>
+              {EDUCATION.map((e, i) => (
+                <li key={e.school} data-reveal style={stagger(i, 70)}>
+                  <span className="meta record__when">{e.period}</span>
+                  <div>
+                    <strong>{e.school}</strong>
+                    <span>{e.degree}</span>
+                    {e.honors && <span className="record__note">{e.honors}</span>}
                   </div>
-                ))}
-              </div>
-            </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="record__col">
+            <h3 className="meta record__title" data-reveal>
+              Recognition
+            </h3>
+            <ul>
+              {ACHIEVEMENTS.map((a, i) => (
+                <li key={a.title} data-reveal style={stagger(i, 70)}>
+                  <span className="meta record__when">{a.organization}</span>
+                  <div>
+                    <strong>{a.title}</strong>
+                    <span>{a.description}</span>
+                  </div>
+                </li>
+              ))}
+              {LEADERSHIP.map((l, i) => (
+                <li key={l.role} data-reveal style={stagger(ACHIEVEMENTS.length + i, 70)}>
+                  <span className="meta record__when">{l.period}</span>
+                  <div>
+                    <strong>
+                      {l.role}, {l.organization}
+                    </strong>
+                    <span>{l.description}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-      </div>
 
-      <style>{`
-        @media (max-width: 860px) {
-          .chronology-row { grid-template-columns: 1fr !important; gap: 20px !important; padding: 32px 0 !important; }
-          .leadership-subgrid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
+        <div className="certs">
+          <h3 className="meta record__title" data-reveal>
+            Certifications <span>({CERTIFICATIONS.length})</span>
+          </h3>
+          <ul>
+            {certs.map((c, i) => (
+              <li key={c.name} data-reveal style={stagger(i % CERTS_SHOWN, 40)}>
+                <a href={c.url} target="_blank" rel="noreferrer" data-cursor="Verify">
+                  <span className="certs__name">{c.name}</span>
+                  <span className="meta">{c.issuer}</span>
+                  <span className="meta">{c.date}</span>
+                  <ArrowUpRight size={13} />
+                </a>
+              </li>
+            ))}
+          </ul>
+          {CERTIFICATIONS.length > CERTS_SHOWN && (
+            <button
+              type="button"
+              className="btn btn--small"
+              aria-expanded={allCerts}
+              onClick={() => setAllCerts((v) => !v)}
+            >
+              {allCerts ? "Show fewer" : `Show all ${CERTIFICATIONS.length}`}
+            </button>
+          )}
+        </div>
+      </div>
     </section>
   );
-};
+}
